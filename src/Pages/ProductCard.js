@@ -1,15 +1,15 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import './style.css';
 import { FaStar, FaStarHalfAlt, FaRegStar } from 'react-icons/fa';
 import img from '../assets/images/products/pizza.svg'
 import MainProduct from '../components/Products/MainProduct';
 import { useParams } from 'react-router-dom';
-import { MainProducts } from '../server/MainProduct';
+import { MirchMasalaProduct } from '../server/Api_MirchMasalaProduct';
 
 export default function ProductCard() {
     const { id } = useParams();
-    const filterProduct = id ? MainProducts.filter(product => product.id === Number(id)) : ''
-    console.log(filterProduct)
+    const filterProduct = id ? MirchMasalaProduct.filter(product => product.id === Number(id)) : ''
+    // console.log(filterProduct)
 
     return (
         <>
@@ -19,7 +19,7 @@ export default function ProductCard() {
                         <img src={img} alt='' />
                     </div>
                     <div className='ContentSection'>
-                        <h2>{product.category}</h2>
+                        <h2>{product.name}</h2>
                         <p>{product.title}</p>
                         <p>{product.description}</p>
                         <div className="showcase-rating">
@@ -33,7 +33,7 @@ export default function ProductCard() {
                         <div className="price-box">
                             <h4>Price:</h4>
                             <del>{product.originalPrice}</del>
-                            <p className="price">{product.price}</p>
+                            <p className="price">{product.discountedPrice}</p>
                         </div>
                         <div className='buttons'>
                             <button>Add to cart</button>

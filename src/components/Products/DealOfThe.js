@@ -1,15 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { FaStar, FaStarHalfAlt, FaRegStar } from 'react-icons/fa';
 import { Deal } from '../../server/DealOfDay'
 
+
 export default function DealOfThe() {
+    const [value, setValue] = useState(Deal.sold);
+
     return (
         <>
             {Deal.map((item) => (
                 <div className="showcase-container" key={item.id}>
                     <div className="showcase">
                         <div className="showcase-banner">
-                            <img src={item.image} alt={item.title} className="showcase-img" />
+                            <img src={item.images[0]} alt={item.title} className="showcase-img" />
                         </div>
 
                         <div className="showcase-content">
@@ -22,24 +25,36 @@ export default function DealOfThe() {
                             </div>
 
                             <h3 className="showcase-title">
-                                <a href="#" className="showcase-title">{item.title}</a>
+                                <a href="#" className="showcase-title">{item.name}</a>
                             </h3>
+                            <h4 className="showcase-title">
+                                <a href="#" className="showcase-title">{item.title}</a>
+                            </h4>
 
                             <p className="showcase-desc">{item.description}</p>
 
                             <div className="price-box">
-                                <p className="price">${item.price}</p>
-                                <del>${item.originalPrice}</del>
+                                <p className="price">${item.originalPrice}</p>
+                                <del>${item.discountedPrice}</del>
                             </div>
 
                             <button className="add-cart-btn">add to cart</button>
 
                             <div className="showcase-status">
                                 <div className="wrapper">
+
                                     <p> already sold: <b>{item.sold}</b> </p>
                                     <p> available: <b>{item.available}</b> </p>
                                 </div>
-                                <div className="showcase-status-bar"></div>
+                                <input
+                                    type="range"
+                                    min={0}
+                                    max={100}
+                                    step={5}
+                                    value={item.sold}
+                                    readOnly
+                                    className="custom-slider-dealDay"
+                                />
                             </div>
 
                             <div className="countdown-box">

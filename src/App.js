@@ -5,6 +5,7 @@ import ProductCard from './Pages/ProductCard';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import Modal from './components/Modal';
+import MainProduct from './components/Products/MainProduct';
 
 function App() {
 
@@ -15,7 +16,8 @@ function App() {
       <Routes>
         <Route index element={<Home />} />
         <Route path='/home' element={<Home/>}/>
-        <Route path='/ProductCard/:id' element={<ProductCard/>}/>
+        <Route path='/Product/:id' element={<ProductCard/>}/>
+        <Route path='/ProductCard/:category' element={<MainProduct/>}/>
         <Route path='*' element={<Page404/>}/>
       </Routes>
       <Footer/>

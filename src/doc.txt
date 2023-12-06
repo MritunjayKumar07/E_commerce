@@ -1,0 +1,4 @@
+1>Show Product Card (MainProduct), when Click On MainProduct then its pass product id 
+2>Then Open (ProductCard) its get the Product id from url is and filter data and get this data and show, then its get keywords of this data and
+pass the PageTitle and keyword in MainProduct page .
+3> Then Main Product get the Page Title and show and get the keyword and show card based on keywords.

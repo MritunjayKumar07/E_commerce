@@ -6,8 +6,7 @@
  * copyright 2022 @codewithsadee 
  */
  /* .header-main */
-
-
+.showcase-content
 /*-----------------------------------*\
   #CUSTOM PROPERTY
 \*-----------------------------------*/
@@ -758,6 +757,7 @@ body::-webkit-scrollbar-thumb:hover { background: hsl(0, 0%, 70%); }
 
 .sidebar .showcase-content { width: calc(100% - 90px); }
 
+
 .sidebar .showcase-title {
   color: var(--onyx);
   font-size: var(--fs-7);
@@ -850,6 +850,36 @@ body::-webkit-scrollbar-thumb:hover { background: hsl(0, 0%, 70%); }
   font-size: var(--fs-8);
   text-transform: capitalize;
   margin-bottom: 3px;
+}
+
+.showcase-container .showcase-status .custom-slider-dealDay{
+  width: 100%; 
+  -webkit-appearance: none;
+  height: 10px;
+  border-radius: 5px;
+  background: rgb(2,0,36);
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(0,0,0,1) 35%, hsl(0, 100%, 70%) 100%);
+  outline: none;
+  opacity: 1;
+  transition: opacity 0.2s;
+}
+
+.showcase-container .showcase-status .custom-slider-dealDay::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: hsl(0, 100%, 70%);
+  cursor: pointer;
+}
+
+.showcase-container .showcase-status .custom-slider-dealDay::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: hsl(0, 100%, 70%);
+  cursor: pointer;
 }
 
 .product-minimal .showcase-category:hover { color: var(--salmon-pink); }
@@ -967,6 +997,8 @@ body::-webkit-scrollbar-thumb:hover { background: hsl(0, 0%, 70%); }
 
 .product-featured .showcase-status { margin-bottom: 15px; }
 
+
+
 .product-featured .showcase-status .wrapper {
   display: flex;
   justify-content: space-between;
@@ -976,24 +1008,6 @@ body::-webkit-scrollbar-thumb:hover { background: hsl(0, 0%, 70%); }
   font-weight: var(--weight-400);
   text-transform: uppercase;
   margin-bottom: 10px;
-}
-
-.product-featured .showcase-status-bar {
-  background: var(--cultured);
-  position: relative;
-  height: 10px;
-  border-radius: 5px;
-}
-
-.product-featured .showcase-status-bar::before {
-  position: absolute;
-  content: '';
-  top: 3px;
-  left: 3px;
-  height: 4px;
-  width: 40%;
-  background: var(--salmon-pink);
-  border-radius: 4px;
 }
 
 .product-featured .countdown-desc {

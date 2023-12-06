@@ -2,7 +2,7 @@ export const ProductsApi = [
     // 
     {
         id:1,
-        title: `New Arrivals`,
+        spacel: `New Arrivals`,
         image: require(`../assets/images/products/pizza.svg`).default,
         showcaseTitle: `Relaxed Short full Sleeve T-Shirt`,
         showcaseCategory: `Clothes`,
@@ -11,7 +11,7 @@ export const ProductsApi = [
     },
     {
         id:2,
-        title: `New Arrivals`,
+        spacel: `New Arrivals`,
         image: require(`../assets/images/products/pizza.svg`).default,
         showcaseTitle: `Girls pnk Embro design Top`,
         showcaseCategory: `Clothes`,
@@ -20,7 +20,7 @@ export const ProductsApi = [
     },
     {
         id:3,
-        title: `New Arrivals`,
+        spacel: `New Arrivals`,
         image: require(`../assets/images/products/pizza.svg`).default,
         showcaseTitle: `Black Floral Wrap Midi Skirt`,
         showcaseCategory: `Clothes`,
@@ -29,7 +29,7 @@ export const ProductsApi = [
     },
     {
         id:4,
-        title: `New Arrivals`,
+        spacel: `New Arrivals`,
         image: require(`../assets/images/products/pizza.svg`).default,
         showcaseTitle: `Pure Garment Dyed Cotton Shirt`,
         showcaseCategory: `Mens Fashion`,
@@ -38,7 +38,7 @@ export const ProductsApi = [
     },
     {
         id:5,
-        title: `New Arrivals`,
+        spacel: `New Arrivals`,
         image: require(`../assets/images/products/pizza.svg`).default,
         showcaseTitle: `MEN Yarn Fleece Full-Zip Jacket`,
         showcaseCategory: `Winter wear`,
@@ -47,7 +47,7 @@ export const ProductsApi = [
     },
     {
         id:6,
-        title: `New Arrivals`,
+        spacel: `New Arrivals`,
         image: require(`../assets/images/products/pizza.svg`).default,
         showcaseTitle: `Mens Winter Leathers Jackets`,
         showcaseCategory: `Winter wear`,
@@ -56,7 +56,7 @@ export const ProductsApi = [
     },
     {
         id:7,
-        title: `New Arrivals`,
+        spacel: `New Arrivals`,
         image: require(`../assets/images/products/pizza.svg`).default,
         showcaseTitle: `Mens Winter Leathers Jackets`,
         showcaseCategory: `Jackets`,
@@ -65,7 +65,7 @@ export const ProductsApi = [
     },
     {
         id:8,
-        title: `New Arrivals`,
+        spacel: `New Arrivals`,
         image: require(`../assets/images/products/pizza.svg`).default,
         showcaseTitle: `Better Basics French Terry Sweatshorts`,
         showcaseCategory: `Shorts`,
@@ -74,7 +74,7 @@ export const ProductsApi = [
     },
     {
         id:9,
-        title: `Trending`,
+        spacel: `Trending`,
         image: require(`../assets/images/products/pizza.svg`).default,
         showcaseTitle: `Running & Trekking Shoes - White`,
         showcaseCategory: `Sports`,
@@ -83,7 +83,7 @@ export const ProductsApi = [
     },
     {
         id:10,
-        title: `Trending`,
+        spacel: `Trending`,
         image: require(`../assets/images/products/pizza.svg`).default,
         showcaseTitle: `Trekking & Running Shoes - black`,
         showcaseCategory: `Sports`,
@@ -92,7 +92,7 @@ export const ProductsApi = [
     },
     {
         id:11,
-        title: `Trending`,
+        spacel: `Trending`,
         image: require(`../assets/images/products/pizza.svg`).default,
         showcaseTitle: `Womens Party Wear Shoes`,
         showcaseCategory: `Party wear`,
@@ -101,7 +101,7 @@ export const ProductsApi = [
     },
     {
         id:12,
-        title: `Trending`,
+        spacel: `Trending`,
         image: require(`../assets/images/products/pizza.svg`).default,
         showcaseTitle: `Sports Claw Women's Shoes`,
         showcaseCategory: `Sports`,
@@ -110,7 +110,7 @@ export const ProductsApi = [
     },
     {
         id:13,
-        title: `Trending`,
+        spacel: `Trending`,
         image: require(`../assets/images/products/pizza.svg`).default,
         showcaseTitle: `Air Trekking Shoes - white`,
         showcaseCategory: `Sports`,
@@ -120,7 +120,7 @@ export const ProductsApi = [
 
     {
         id:14,
-        title: `Trending`,
+        spacel: `Trending`,
         image: require(`../assets/images/products/pizza.svg`).default,
         showcaseTitle: `Boot With Suede Detail`,
         showcaseCategory: `boots`,
@@ -129,7 +129,7 @@ export const ProductsApi = [
     },
     {
         id:15,
-        title: `Trending`,
+        spacel: `Trending`,
         image: require(`../assets/images/products/pizza.svg`).default,
         showcaseTitle: `Men's Leather Formal Wear shoes`,
         showcaseCategory: `formal`,
@@ -138,7 +138,7 @@ export const ProductsApi = [
     },
     {
         id:16,
-        title: `Trending`,
+        spacel: `Trending`,
         image: require(`../assets/images/products/pizza.svg`).default,
         showcaseTitle: `Casual Men's Brown shoes`,
         showcaseCategory: `Casual`,
@@ -146,7 +146,7 @@ export const ProductsApi = [
         del: `$55.00`,
     },{
         id:17,
-        title: `Top Rated`,
+        spacel: `Top Rated`,
         image: require(`../assets/images/products/pizza.svg`).default,
         showcaseTitle: `Pocket Watch Leather Pouch`,
         showcaseCategory: `Watches`,
@@ -155,7 +155,7 @@ export const ProductsApi = [
     },
     {
         id:18,
-        title: `Top Rated`,
+        spacel: `Top Rated`,
         image: require(`../assets/images/products/pizza.svg`).default,
         showcaseTitle: `Silver Deer Heart Necklace`,
         showcaseCategory: `Jewellery`,
@@ -164,7 +164,7 @@ export const ProductsApi = [
     },
     {
         id:19,
-        title: `Top Rated`,
+        spacel: `Top Rated`,
         image: require(`../assets/images/products/pizza.svg`).default,
         showcaseTitle: `Titan 100 Ml Womens Perfume`,
         showcaseCategory: `Perfume`,
@@ -173,7 +173,7 @@ export const ProductsApi = [
     },
     {
         id:20,
-        title: `Top Rated`,
+        spacel: `Top Rated`,
         image: require(`../assets/images/products/pizza.svg`).default,
         showcaseTitle: `Men's Leather Reversible Belt`,
         showcaseCategory: `Belt`,
@@ -182,7 +182,7 @@ export const ProductsApi = [
     },
     {
         id:21,
-        title: `Top Rated`,
+        spacel: `Top Rated`,
         image: require(`../assets/images/products/pizza.svg`).default,
         showcaseTitle: `platinum Zircon Classic Ring`,
         showcaseCategory: `jewellery`,
@@ -191,7 +191,7 @@ export const ProductsApi = [
     },
     {
         id:22,
-        title: `Top Rated`,
+        spacel: `Top Rated`,
         image: require(`../assets/images/products/pizza.svg`).default,
         showcaseTitle: `Smart watche Vital Plus`,
         showcaseCategory: `Watches`,
@@ -200,7 +200,7 @@ export const ProductsApi = [
     },
     {
         id:23,
-        title: `Top Rated`,
+        spacel: `Top Rated`,
         image: require(`../assets/images/products/pizza.svg`).default,
         showcaseTitle: `shampoo conditioner packs`,
         showcaseCategory: `cosmetics`,
@@ -209,7 +209,7 @@ export const ProductsApi = [
     },
     {
         id:24,
-        title: `Top Rated`,
+        spacel: `Top Rated`,
         image: require(`../assets/images/products/pizza.svg`).default,
         showcaseTitle: `Rose Gold Peacock Earrings`,
         showcaseCategory: `jewellery`,
@@ -218,7 +218,7 @@ export const ProductsApi = [
     },
     {
         id:25,
-        title: `Top Rated`,
+        spacel: `Top Rated`,
         image: require(`../assets/images/products/pizza.svg`).default,
         image: ``,
         showcaseTitle: ``,

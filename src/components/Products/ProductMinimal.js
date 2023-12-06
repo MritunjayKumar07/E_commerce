@@ -1,5 +1,7 @@
 import React from 'react'
-import { ProductsApi } from '../../server/ApiProduct';
+import { MirchMasalaProduct } from '../../server/Api_MirchMasalaProduct';
+import image from '../../assets/images/products/pizza.svg'
+import { Link } from 'react-router-dom';
 
 export default function ProductMinimal() {
     const chunkArray = (array, size) => {
@@ -17,16 +19,16 @@ export default function ProductMinimal() {
                         <h2 className="title">{category}</h2>
                         <div className="showcase-wrapper has-scrollbar">
                             {chunkArray(
-                                ProductsApi.filter(product => product.title === category),
+                                MirchMasalaProduct.filter(product => product.spacel === category),
                                 4
                             ).map((row, rowIndex) => (
                                 <div key={rowIndex} className="showcase-container">
                                     {row.map(product => (
-                                        <div key={product.id} className="showcase">
+                                        <Link to={`/Product/${product.id} `} key={product.id} className="showcase">
                                             <a href="#" className="showcase-img-box">
                                                 <img
-                                                    src={product.image}
-                                                    alt={product.showcaseTitle}
+                                                    src={image}
+                                                    alt={product.title}
                                                     className="showcase-img"
                                                     width="70"
                                                     height="90"
@@ -34,17 +36,17 @@ export default function ProductMinimal() {
                                             </a>
                                             <div className="showcase-content">
                                                 <a href="#">
-                                                    <h4 className="showcase-title">{product.showcaseTitle}</h4>
+                                                    <h4 className="showcase-title">{product.name}</h4>
                                                 </a>
                                                 <a href="#" className="showcase-category">
-                                                    {product.showcaseCategory}
+                                                    {product.title}
                                                 </a>
                                                 <div className="price-box">
-                                                    <p className="price">{product.price}</p>
-                                                    <del>{product.del}</del>
+                                                    <p className="price">{product.discountedPrice}</p>
+                                                    <del>{product.originalPrice}</del>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </Link>
                                     ))}
                                 </div>
                             ))}
