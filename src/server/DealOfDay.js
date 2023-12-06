@@ -1,0 +1,36 @@
+export const Deal = [
+    {
+      id: 1,
+      image: require(`../assets/images/products/pizza.svg`).default,
+      rating: 3.0,
+      title: 'Shampoo, Conditioner & Facewash Packs',
+      description: 'Lorem ipsum dolor sit amet consectetur Lorem ipsum dolor dolor sit amet consectetur Lorem ipsum dolor',
+      price: 150.00,
+      originalPrice: 200.00,
+      sold: 20,
+      available: 40,
+      countdown: {
+        days: 360,
+        hours: 24,
+        minutes: 59,
+        seconds: 0,
+      },
+    },
+    {
+      id: 2,
+      image: require(`../assets/images/products/pizza.svg`).default,
+      rating: 3.5,
+      title: 'Rose Gold Diamonds Earring',
+      description: 'Lorem ipsum dolor sit amet consectetur Lorem ipsum dolor dolor sit amet consectetur Lorem ipsum dolor',
+      price: 1990.00,
+      originalPrice: 2000.00,
+      sold: 15,
+      available: 40,
+      countdown: {
+        days: 360,
+        hours: 24,
+        minutes: 59,
+        seconds: 0,
+      },
+    },
+  ];
