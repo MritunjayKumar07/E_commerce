@@ -1,14 +1,15 @@
 import React from 'react'
 import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
-import { BestSellersproducts } from '../../server/BestSellersProducts';
+import { MirchMasalaProduct } from '../../server/Api_MirchMasalaProduct';
+import { Link } from 'react-router-dom';
 
 export default function ShowcaseContainer() {
     return (
         <>
-            {BestSellersproducts.map((product) => (
-                <div className="showcase" key={product.id}>
+            {MirchMasalaProduct.filter(product=>product.deal === String('Best Sale')).map((product) => (
+                <Link to={`/ProductDetail/${product.id} `} className="showcase" key={product.id}>
                     <a href="#" className="showcase-img-box">
-                        <img src={product.image} alt={product.name} className="showcase-img" width="75" height="75" />
+                        <img src={product.images[0]} alt={product.name} className="showcase-img" width="75" height="75" />
                     </a>
                     <div className="showcase-content">
                         <a href="#">
@@ -26,7 +27,7 @@ export default function ShowcaseContainer() {
                             <p className="price">${product.discountedPrice}</p>
                         </div>
                     </div>
-                </div>
+                </Link>
             ))}
         </>
     )

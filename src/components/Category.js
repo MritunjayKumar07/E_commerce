@@ -26,7 +26,7 @@ export default function Category() {
         <div className="category-item-container has-scrollbar">
           {/* Iterate through the categories and display them */}
           {Object.keys(categoryInfo).map((categoryName) => (
-            <Link to={`/ProductCard/${categoryName} `} className="category-item" key={categoryName}>
+            <Link to={`/Products/${categoryName} `} className="category-item" key={categoryName}>
               <div className="category-img-box">
                 <img
                   src={categoryInfo[categoryName].image}

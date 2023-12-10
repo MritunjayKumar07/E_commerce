@@ -2,6 +2,7 @@ export const MenuCategories = [
     {
         id: 1,
         title: 'Home',
+        link:'/'
     },
     {
         id: 2,
@@ -9,97 +10,99 @@ export const MenuCategories = [
         subcategories: [
             {
                 items: [
-                    { title: 'Desktop', link: '#' },
-                    { title: 'Laptop', link: '#' },
-                    { title: 'Camera', link: '#' },
-                    { title: 'Tablet', link: '#' },
-                    { title: 'Headphone', link: '#' },
-                    { title: 'Headphone Collection', image: require(`../assets/images/products/pizza.svg`).default, link: '#' },
+                    { title: 'Pizza',},
+                    { title: 'Farmhouse Pizza',},
+                    { title: 'Mushroom Pizza',},
+                    { title: 'Peri Peri Paneer Pizza',},
+                    { title: 'Paneer Tikka Pizza',},
+                    { title: 'Paneer Makhni Pizza',},
+                    { title: 'Schezwan Paneer Pizza', image: require(`../assets/images/products/pizza.svg`).default,},
                 ]
             },
             {
                 items: [
-                    { title: 'Desktop2', link: '#' },
-                    { title: 'Laptop2', link: '#' },
-                    { title: 'Camera2', link: '#' },
-                    { title: 'Tablet2', link: '#' },
-                    { title: 'Headphone2', link: '#' },
-                    { title: 'Headphone Collection2', image: require(`../assets/images/products/pizza.svg`).default, link: '#' },
+                    { title: 'Burger',},
+                    { title: 'Crispy Veggie Burger',},
+                    { title: 'Crispy Veggie Cheese Burger',},
+                    { title: 'Paneer Makhani Burger', image: require(`../assets/images/products/pizza.svg`).default,},
                 ]
             },
             {
                 items: [
-                    { title: 'Desktop3', link: '#' },
-                    { title: 'Laptop3', link: '#' },
-                    { title: 'Camera3', link: '#' },
-                    { title: 'Tablet3', link: '#' },
-                    { title: 'Headphone3', link: '#' },
-                    { title: 'Headphone Collection3', image: require(`../assets/images/products/pizza.svg`).default, link: '#' },
+                    { title: 'Combo',},
+                    { title: 'Party Special Combo',},
+                    { title: 'Spicy Veg Combo',},
+                    { title: 'Makhni Combo', image: require(`../assets/images/products/pizza.svg`).default,},
                 ]
             },
             {
                 items: [
-                    { title: 'Desktop4', link: '#' },
-                    { title: 'Laptop4', link: '#' },
-                    { title: 'Camera4', link: '#' },
-                    { title: 'Tablet4', link: '#' },
-                    { title: 'Headphone4', link: '#' },
-                    { title: 'Headphone Collection4', image: require(`../assets/images/products/pizza.svg`).default, link: '#' },
+                    { title: 'Pizza',},
+                    { title: 'Farmhouse Pizza',},
+                    { title: 'Mushroom Pizza',},
+                    { title: 'Peri Peri Paneer Pizza',},
+                    { title: 'Paneer Tikka Pizza',},
+                    { title: 'Paneer Makhni Pizza',},
+                    { title: 'Schezwan Paneer Pizza', image: require(`../assets/images/products/pizza.svg`).default,},
                 ]
             }
         ],
     },
     {
         id: 3,
-        title: 'Mens',
+        title: 'Pizza',
         subcategories: [
             {
                 items: [
-                    { title: 'Shirt', link: '#' },
-                    { title: 'Shorts & Jeans', link: '#' },
-                    { title: 'Safety Shoes', link: '#' },
-                    { title: 'Wallet', link: '#' },
+                    { title: 'Pizza',},
+                    { title: 'Farmhouse Pizza',},
+                    { title: 'Mushroom Pizza',},
+                    { title: 'Peri Peri Paneer Pizza',},
+                    { title: 'Paneer Tikka Pizza',},
+                    { title: 'Paneer Makhni Pizza',},
+                    { title: 'Schezwan Paneer Pizza',},
                 ]
             }
         ],
     },
     {
         id: 4,
-        title: 'Womens',
+        title: 'Burger',
         subcategories: [
             {
                 items: [
-                    { title: 'Shirt', link: '#' },
-                    { title: 'Shorts & Jeans', link: '#' },
-                    { title: 'Safety Shoes', link: '#' },
-                    { title: 'Wallet', link: '#' },
+                    { title: 'Burger',},
+                    { title: 'Crispy Veggie Burger',},
+                    { title: 'Crispy Veggie Cheese Burger',},
+                    { title: 'Paneer Makhani Burger', },
                 ]
             }
         ],
     },
     {
         id: 5,
-        title: 'Jewelry',
+        title: 'Combo',
         subcategories: [
             {
                 items: [
-                    { title: 'Shirt', link: '#' },
-                    { title: 'Shorts & Jeans', link: '#' },
-                    { title: 'Safety Shoes', link: '#' },
-                    { title: 'Wallet', link: '#' },
+                    { title: 'Combo',},
+                    { title: 'Party Special Combo',},
+                    { title: 'Spicy Veg Combo',},
+                    { title: 'Makhni Combo',},
                 ]
             }
         ],
     },
     {
         id: 6,
-        title: 'Perfume',
+        title: 'Our Services',
         subcategories: [
             {
                 items: [
-                    { title: 'Shirt', link: '#' },
-                    { title: 'Shorts & Jeans', link: '#' },
-                    { title: 'Wallet', link: '#' },
+                    { title: 'Same Day Delivery',},
+                    { title: 'Best Online Support',},
+                    { title: 'Return Policy',},
+                    { title: '100% Money Back',},
                 ]
             }
         ],
@@ -110,7 +113,7 @@ export const MenuCategories = [
         subcategories: [
             {
                 items: [
-                    { title: 'Shirt', link: '#' },
+                    { title: 'Shirt',},
                 ]
             }
         ],

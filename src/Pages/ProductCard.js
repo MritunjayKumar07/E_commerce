@@ -1,15 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './style.css';
 import { FaStar, FaStarHalfAlt, FaRegStar } from 'react-icons/fa';
 import img from '../assets/images/products/pizza.svg'
 import MainProduct from '../components/Products/MainProduct';
 import { useParams } from 'react-router-dom';
 import { MirchMasalaProduct } from '../server/Api_MirchMasalaProduct';
+import DilogBox from '../components/DilogBox';
 
 export default function ProductCard() {
+    const [isDialogOpen, setDialogOpen] = useState(false);
     const { id } = useParams();
     const filterProduct = id ? MirchMasalaProduct.filter(product => product.id === Number(id)) : ''
-    // console.log(filterProduct)
+    console.log(id)
+
+    const openDialog = () => setDialogOpen(true);
+    const closeDialog = () => setDialogOpen(false);
 
     return (
         <>
@@ -33,10 +38,11 @@ export default function ProductCard() {
                         <div className="price-box">
                             <h4>Price:</h4>
                             <del>{product.originalPrice}</del>
+                            {/* <p className="price">{product.discountedPrice.replace(/(<([^>]+)>)/ig,"")}</p> */}
                             <p className="price">{product.discountedPrice}</p>
                         </div>
                         <div className='buttons'>
-                            <button>Add to cart</button>
+                            <button onClick={openDialog}>Add to cart</button>
                             <button>Eat now</button>
                         </div>
                     </div>
@@ -45,7 +51,9 @@ export default function ProductCard() {
                     <MainProduct PageTitle='Similar Product' KeyWords={product.keyWords} />
                 </section>
             </div>))}
-
+            <DilogBox isOpen={isDialogOpen} onClose={closeDialog}>
+                <h2>Cart</h2>
+            </DilogBox>
         </>
     );
 }

@@ -11,20 +11,34 @@ import {
 } from "react-icons/fa";
 import HeaderTop from './Header/HeaderTop';
 import { MenuCategories } from '../server/ApiMenu';
-
+import { MirchMasalaProduct } from '../server/Api_MirchMasalaProduct';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Header() {
     const [heartCount, setHeartCount] = useState(0);
     const [bagCount, setBagCount] = useState(0);
+    const navigate = useNavigate();
+
+    const handleMenuTitleClick = (title) => {
+        const filteredProduct = title ? MirchMasalaProduct.filter(product => product.name === title) : [];
+        if (filteredProduct.length > 0) {
+            const category = filteredProduct[0].category;
+            navigate(`/Products/${category[0]}`);
+        } else {
+            console.error(`Product with name ${title} not found.`);
+        }
+    };
+
+
     return (
         <>
             <header>
                 <HeaderTop />
                 <div className="header-main">
                     <div className="container">
-                        <a href="#" className="header-logo">
+                        <Link to='/' className="header-logo">
                             <img src={logo} alt="Anon's logo" width="160" />
-                        </a>
+                        </Link>
 
                         <div className="header-search-container">
                             <input type="search" name="search" className="search-field" placeholder="Enter your product name..." />
@@ -55,7 +69,16 @@ export default function Header() {
                         <ul className="desktop-menu-category-list" >
                             {MenuCategories.map(category => (
                                 <li key={category.id} className="menu-category">
-                                    <a href="#" className="menu-title">{category.title}</a>
+                                    <a
+                                        onClick={() => {
+                                            if (category.title === "Home")
+                                                navigate(category.link);
+                                        }}
+                                        href="#"
+                                        className="menu-title"
+                                    >
+                                        {category.title}
+                                    </a>
                                     {category.subcategories && (
                                         <div className="dropdown-panel" style={{ width: 'auto' }}>
                                             {category.subcategories.map(subcategory => (
@@ -74,7 +97,7 @@ export default function Header() {
                                                                     <img src={item.image} alt={item.title} width="250" height="119" />
                                                                 </a>
                                                             ) : (
-                                                                <a href="#" style={{ width: 'auto', whiteSpace: 'nowrap' }}>{item.title}</a>
+                                                                <a onClick={() => handleMenuTitleClick(item.title)} style={{ width: 'auto', whiteSpace: 'nowrap' }}>{item.title}</a>
                                                             )}
                                                         </li>
                                                     ))}
@@ -86,7 +109,6 @@ export default function Header() {
                             ))}
                         </ul>
                     </div>
-
                 </nav>
                 <div className="mobile-bottom-navigation">
                     <button className="action-btn" data-mobile-menu-open-btn>

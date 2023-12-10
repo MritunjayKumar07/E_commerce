@@ -24,7 +24,7 @@ export default function ProductMinimal() {
                             ).map((row, rowIndex) => (
                                 <div key={rowIndex} className="showcase-container">
                                     {row.map(product => (
-                                        <Link to={`/Product/${product.id} `} key={product.id} className="showcase">
+                                        <Link to={`/ProductDetail/${product.id} `} key={product.id} className="showcase">
                                             <a href="#" className="showcase-img-box">
                                                 <img
                                                     src={image}

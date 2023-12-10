@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { IoIosRemoveCircle, IoMdAddCircle } from 'react-icons/io';
-import { SideBarCategory } from '../../server/ApiSideBarCategory'
+import { SideBarCategory } from '../../server/ApiSideBarCategory';
+import { Link } from 'react-router-dom';
 
 const SidebarCategory = ({ category, isOpen, onToggle }) => {
   const { title, icon, subcategories } = category;
@@ -30,12 +31,12 @@ const SidebarCategory = ({ category, isOpen, onToggle }) => {
       >
         {subcategories.map((subCategory) => (
           <li key={subCategory.title} className="sidebar-submenu-category">
-            <a href="#" className="sidebar-submenu-title">
+            <Link to={`/ProductDetail/${subCategory.id[0]} `} className="sidebar-submenu-title">
               <p className="product-name">{subCategory.title}</p>
               <data value={subCategory.stock} className="stock" title="Available Stock">
                 {subCategory.stock}
               </data>
-            </a>
+            </Link>
           </li>
         ))}
       </ul>

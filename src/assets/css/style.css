@@ -1,12 +1,10 @@
 /*-----------------------------------*\
   #style.css
 \*-----------------------------------*/
-
 /**
  * copyright 2022 @codewithsadee 
  */
  /* .header-main */
-.showcase-content
 /*-----------------------------------*\
   #CUSTOM PROPERTY
 \*-----------------------------------*/
@@ -212,7 +210,6 @@ body::-webkit-scrollbar-thumb:hover { background: hsl(0, 0%, 70%); }
 
 }
 
-.modal.closed { display: none; }
 
 .modal-close-overlay {
   position: absolute;
@@ -713,7 +710,8 @@ body::-webkit-scrollbar-thumb:hover { background: hsl(0, 0%, 70%); }
 .sidebar-submenu-category-list-active {
   border-top: 1px solid var(--cultured);
   padding: 13px 0 8px;
-  max-height: 122px;
+  max-height: auto;
+  /* max-height: 322px; */
   visibility: visible;
   transition: 0.5s ease-in-out;
 }

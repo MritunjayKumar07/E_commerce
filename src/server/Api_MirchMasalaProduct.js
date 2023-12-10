@@ -18,7 +18,6 @@ export const MirchMasalaProduct = [
         categoryId: 2,
         category: ['Pizza', '8 inch', 'New Arrivals'],
         deal: 'sale',
-
     },
     {
         id: 2,
@@ -35,7 +34,7 @@ export const MirchMasalaProduct = [
         available: true,
         categoryId: 2,
         category: ['Pizza', '10 inch', 'New Arrivals'],
-        deal: 'sale',
+        deal: 'Best Sale',
     },
     {
         id: 3,
@@ -103,7 +102,7 @@ export const MirchMasalaProduct = [
         available: true,
         categoryId: 2,
         category: ['Pizza', '10 inch', 'BEST SELLERS'],
-        deal: 'sale',
+        deal: 'Best Sale',
     },
     {
         id: 7,
@@ -137,7 +136,7 @@ export const MirchMasalaProduct = [
         available: true,
         categoryId: 2,
         category: ['Pizza', '10 inch', 'BEST SELLERS'],
-        deal: 'sale',
+        deal: '',
     },
     {
         id: 9,
@@ -154,7 +153,7 @@ export const MirchMasalaProduct = [
         available: true,
         categoryId: 2,
         category: ['Pizza', '8 inch'],
-        deal: 'sale',
+        deal: 'Best Sale',
     },
     {
         id: 10,
@@ -188,7 +187,7 @@ export const MirchMasalaProduct = [
         available: true,
         categoryId: 2,
         category: ['Pizza', '8 inch', 'Top Rated', 'BEST SELLERS'],
-        deal: 'sale',
+        deal: '',
     },
     {
         id: 12,
@@ -205,7 +204,7 @@ export const MirchMasalaProduct = [
         available: true,
         categoryId: 2,
         category: ['Pizza', '10 inch', 'Trending'],
-        deal: 'sale',
+        deal: '',
     },
     {
         id: 13,
@@ -239,7 +238,7 @@ export const MirchMasalaProduct = [
         available: true,
         categoryId: 3,
         category: ['Burger', 'Trending', 'BEST SELLERS'],
-        deal: 'sale',
+        deal: '',
     },
     {
         id: 15,

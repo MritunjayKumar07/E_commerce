@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 
 const Showcase = ({ product }) => {
     return (
-        <Link to={`/Product/${product.id}`} className="showcase" key={product.id} >
+        <Link to={`/ProductDetail/${product.id}`} className="showcase" key={product.id} >
             <div className="showcase-banner">
                 <img src={product.images[0]} alt={product.title} width="300" className="product-img default" />
                 <img src={product.images[1]} alt={product.title} width="300" className="product-img hover" />
