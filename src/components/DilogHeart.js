@@ -144,7 +144,7 @@ const IncreaseDecreaseAmount = styled.div`
   }
 `;
 
-export default function DialogBox({ isOpen, children, closeDialog }) {
+export default function DilogHeart({ isOpen, children, closeDialog }) {
   const [items, setItems] = useState([]);
   const navigate = useNavigate();
 

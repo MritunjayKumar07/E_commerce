@@ -5,16 +5,27 @@ import img from '../assets/images/products/pizza.svg'
 import MainProduct from '../components/Products/MainProduct';
 import { useParams } from 'react-router-dom';
 import { MirchMasalaProduct } from '../server/Api_MirchMasalaProduct';
-import DilogBox from '../components/DilogBox';
 
 export default function ProductCard() {
-    const [isDialogOpen, setDialogOpen] = useState(false);
     const { id } = useParams();
     const filterProduct = id ? MirchMasalaProduct.filter(product => product.id === Number(id)) : ''
-    console.log(id)
 
-    const openDialog = () => setDialogOpen(true);
-    const closeDialog = () => setDialogOpen(false);
+    const AddToCart = (ProductId) => {
+        let cartItems = localStorage.getItem('MirchMasalaCart');
+        if (cartItems) {
+            cartItems = JSON.parse(cartItems);
+            const existingItem = cartItems.find(item => item.ProductId === ProductId);
+            if (existingItem) {
+                existingItem.Amount += 1;
+            } else {
+                cartItems.push({ "ProductId": ProductId, "Amount": 1 });
+            }
+        } else {
+            cartItems = [{ "ProductId": ProductId, "Amount": 1 }];
+        }
+        localStorage.setItem('MirchMasalaCart', JSON.stringify(cartItems));
+    }
+
 
     return (
         <>
@@ -42,7 +53,7 @@ export default function ProductCard() {
                             <p className="price">{product.discountedPrice}</p>
                         </div>
                         <div className='buttons'>
-                            <button onClick={openDialog}>Add to cart</button>
+                            <button onClick={() => AddToCart(product.ProductId)}>Add to cart</button>
                             <button>Eat now</button>
                         </div>
                     </div>
@@ -51,9 +62,7 @@ export default function ProductCard() {
                     <MainProduct PageTitle='Similar Product' KeyWords={product.keyWords} />
                 </section>
             </div>))}
-            <DilogBox isOpen={isDialogOpen} onClose={closeDialog}>
-                <h2>Cart</h2>
-            </DilogBox>
+
         </>
     );
 }

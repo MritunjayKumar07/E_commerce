@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from "../assets/images/logo/logo.png";
 import {
     FaSearch,
@@ -9,15 +9,21 @@ import {
     FaHome,
     FaGripVertical,
 } from "react-icons/fa";
+import { GrClose } from 'react-icons/gr';
 import HeaderTop from './Header/HeaderTop';
 import { MenuCategories } from '../server/ApiMenu';
 import { MirchMasalaProduct } from '../server/Api_MirchMasalaProduct';
 import { Link, useNavigate } from 'react-router-dom';
+import DilogBox from './DilogBox';
 
 export default function Header() {
+    const [isDialogOpen, setDialogOpen] = useState(false);
     const [heartCount, setHeartCount] = useState(0);
     const [bagCount, setBagCount] = useState(0);
     const navigate = useNavigate();
+
+    const openDialog = () => setDialogOpen(true);
+    const closeDialog = () => setDialogOpen(false);
 
     const handleMenuTitleClick = (title) => {
         const filteredProduct = title ? MirchMasalaProduct.filter(product => product.name === title) : [];
@@ -28,6 +34,19 @@ export default function Header() {
             console.error(`Product with name ${title} not found.`);
         }
     };
+
+    useEffect(() => {
+        const fetchCartCount = async () => {
+            const cartItems = await localStorage.getItem('MirchMasalaCart');
+            const parsedCartItems = cartItems ? JSON.parse(cartItems) : [];
+            setBagCount(parsedCartItems.length);
+        };
+
+        fetchCartCount();
+        const intervalId = setInterval(fetchCartCount, 1000);
+        return () => clearInterval(intervalId);
+    }, [heartCount, bagCount]); 
+
 
 
     return (
@@ -52,12 +71,12 @@ export default function Header() {
                                 <FaUser fontSize={29} />
                             </button>
 
-                            <button className="action-btn" onClick={() => setHeartCount(heartCount + 1)}>
+                            <button className="action-btn" onClick={openDialog}>
                                 <FaHeart fontSize={29} />
                                 <span className="count">{heartCount}</span>
                             </button>
 
-                            <button className="action-btn" onClick={() => setBagCount(bagCount + 1)}>
+                            <button className="action-btn" onClick={openDialog}>
                                 <FaShoppingBag fontSize={29} />
                                 <span className="count">{bagCount}</span>
                             </button>
@@ -131,6 +150,13 @@ export default function Header() {
                     </button>
                 </div>
             </header>
+            <DilogBox isOpen={isDialogOpen} closeDialog={closeDialog}>
+  <div style={{ display: 'flex', justifyContent: 'space-between', lineHeight: 0.8 }}>
+    <h2>Cart</h2>
+    <GrClose onClick={closeDialog} style={{ cursor: 'pointer', fontWeight: 900 }} />
+  </div>
+</DilogBox>
+
         </>
     )
 }

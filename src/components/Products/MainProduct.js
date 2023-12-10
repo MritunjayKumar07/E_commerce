@@ -7,6 +7,23 @@ import { Link } from 'react-router-dom';
 
 
 const Showcase = ({ product }) => {
+
+    const AddToCart = (ProductId) => {
+        let cartItems = localStorage.getItem('MirchMasalaCart');
+        if (cartItems) {
+            cartItems = JSON.parse(cartItems);
+            const existingItem = cartItems.find(item => item.ProductId === ProductId);
+            if (existingItem) {
+                existingItem.Amount += 1;
+            } else {
+                cartItems.push({ "ProductId": ProductId, "Amount": 1 });
+            }
+        } else {
+            cartItems = [{ "ProductId": ProductId, "Amount": 1 }];
+        }
+        localStorage.setItem('MirchMasalaCart', JSON.stringify(cartItems));
+    }
+
     return (
         <Link to={`/ProductDetail/${product.id}`} className="showcase" key={product.id} >
             <div className="showcase-banner">
@@ -22,10 +39,10 @@ const Showcase = ({ product }) => {
                     <button className="btn-action">
                         <FaEye />
                     </button>
-                    <button className="btn-action">
+                    {/* <button className="btn-action">
                         <IoRepeat />
-                    </button>
-                    <button className="btn-action">
+                    </button> */}
+                    <button className="btn-action" onClick={() => AddToCart(product.ProductId)}>
                         <FaShoppingBag />
                     </button>
                 </div>
