@@ -1,6 +1,5 @@
 import React from 'react'
 import { FaStar, FaStarHalfAlt, FaRegStar, FaHeart, FaEye, FaShoppingBag } from 'react-icons/fa';
-import { IoRepeat } from "react-icons/io5";
 import { useParams } from 'react-router-dom';
 import { MirchMasalaProduct } from '../../server/Api_MirchMasalaProduct';
 import { Link, useNavigate } from 'react-router-dom';
@@ -28,9 +27,16 @@ const Showcase = ({ product }) => {
     const likeCart = (productId) => {
         let cartItems = localStorage.getItem('MirchMasalaLikeCart');
         if (cartItems) {
-            cartItems = JSON.parse(cartItems);
+            try {
+                cartItems = JSON.parse(cartItems);
+                if (!Array.isArray(cartItems)) {
+                    cartItems = [];
+                }
+            } catch (error) {
+                cartItems = [];
+            }
             if (!cartItems.includes(productId)) {
-                cartItems = [...cartItems, productId];
+                cartItems.push(productId);
                 localStorage.setItem('MirchMasalaLikeCart', JSON.stringify(cartItems));
             }
         } else {
@@ -48,15 +54,12 @@ const Showcase = ({ product }) => {
                 {product.deal && <p className="showcase-badge">{product.deal}</p>}
 
                 <div className="showcase-actions">
-                    <button className="btn-action" onClick={()=>likeCart(product.ProductId)}>
+                    <button className="btn-action" onClick={() => likeCart(product.ProductId)}>
                         <FaHeart />
                     </button>
-                    <button className="btn-action" onClick={()=>navigate(`/ProductDetail/${product.id}`)}>
+                    <button className="btn-action" onClick={() => navigate(`/ProductDetail/${product.id}`)}>
                         <FaEye />
                     </button>
-                    {/* <button className="btn-action">
-                        <IoRepeat />
-                    </button> */}
                     <button className="btn-action" onClick={() => AddToCart(product.ProductId)}>
                         <FaShoppingBag />
                     </button>
