@@ -18,7 +18,7 @@ const DialogContainer = styled.div`
   z-index: 1000;
   opacity: 0;
   animation: fadeIn 0.3s ease-out forwards;
-  border-radius: 8px;
+  border-radius: 8px 8px 8px 8px;
   overflow: scroll;
   scrollbar-width: thin;
   scrollbar-color: hsl(0, 0%, 80%) transparent;
@@ -49,6 +49,15 @@ const DialogContainer = styled.div`
       opacity: 1;
     }
   }
+
+  @media (max-width: 1055px) {
+    width: 90%;
+  }
+
+  @media (max-width: 545px) {
+    width: 95%;
+  }
+
 `;
 
 const Overlay = styled.div`
@@ -67,7 +76,10 @@ const Box = styled.div`
   margin-top: 20px;
   padding: 10px;
   border: 1px solid #ddd;
-  border-radius: 8px;
+  border-radius: 8px 8px 8px 8px;
+  @media (max-width: 545px) {
+    padding: 2px;
+  }
 `;
 
 const ProductImage = styled.div`
@@ -76,11 +88,17 @@ const ProductImage = styled.div`
     margin-right: 10px;
     max-width: 70px;
   }
+  @media (max-width: 545px) {
+    img {
+    border-radius: 8px;
+    margin-right: 3px;
+    max-width: 50px;
+  }
+  }
 `;
 
 const ProductDetails = styled.div`
   flex: 1;
-  margin-right: 10px;
   padding-left: 20px;
   padding-right: 20px;
 
@@ -94,6 +112,29 @@ const ProductDetails = styled.div`
     color: #555;
     margin-bottom: 10px;
   }
+
+  @media (max-width: 545px) {
+    padding-left: 10px;
+    width:auto;
+    b {
+    font-size: 12px;
+    }
+    p {
+    font-size: 12px;
+    margin-bottom: 10px;
+    }
+  }
+
+  @media (max-width: 315px) {
+    b {
+    font-size: 10px;
+    }
+    p {
+    font-size: 8px;
+    margin-bottom: 2px;
+    }
+  }
+
 `;
 
 const ProductPrice = styled.div`
@@ -115,6 +156,27 @@ const ProductPrice = styled.div`
     font-weight: 700;
     padding: 10px;
   }
+  @media (max-width: 545px) {
+    p {
+    font-size: 12px;
+    margin-right: 4px;
+  }
+  del {
+    font-size: 12px;
+    padding: 4px;
+  }
+  }
+  
+  @media (max-width: 315px) {
+    p {
+    font-size: 10px;
+    margin-right: 2px;
+  }
+  del {
+    font-size: 10px;
+    padding: 2px;
+  }
+  }
 `;
 
 const ProductAmount = styled.div`
@@ -126,11 +188,17 @@ const ProductAmount = styled.div`
     margin-bottom: 10px;
     font-size: 1.2em;
   }
+  @media (max-width: 545px) {
+    p {
+    font-size: 12px;
+  }
+  }
 `;
 
 const ChangeAmount = styled.div`
   display: flex;
   align-items: center;
+  
 
   svg {
     cursor: pointer;
@@ -141,6 +209,11 @@ const ChangeAmount = styled.div`
     &:hover {
       color: #007bff;
     }
+  }
+  @media (max-width: 545px) {
+    svg {
+    font-size: 12px;
+  }
   }
 `;
 
@@ -293,11 +366,16 @@ const DialogBox = ({ isOpen, children, closeDialog, dilogName }) => {
             cartItems.map(renderCartItem)
           ) : dilogName === 'Heart Bag' ? (
             likeItems.map(renderLikeItem)
-          ) : null
+          ) : (
+            <div>
+              <h5>You can't select any productPlease add the product.</h5>
+              <img width={250} src={NotItem} alt="Not any item present" />
+            </div>
+          )
         ) : (
           <div>
-            <h3>You can't select any product<br />Please add the product.</h3>
-            <img src={NotItem} alt="Not any item present" />
+            <h5>You can't select any productPlease add the product.</h5>
+            <img width={250} src={NotItem} alt="Not any item present" />
           </div>
         )}
       </DialogContainer>

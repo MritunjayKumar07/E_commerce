@@ -78,18 +78,18 @@ export default function Header() {
                         </div>
 
                         <div className="header-user-actions">
-                            <button className="action-btn">
+                            <button className="action-btn" onClick={()=>navigate('/sideBarMenu')}>
                                 <FaUser fontSize={29} />
                             </button>
 
-                            <button className="action-btn" onClick={()=>{setisDialogName("Heart Bag");openDialog()}}>
+                            <button className="action-btn" onClick={() => { setisDialogName("Heart Bag"); openDialog() }}>
                                 <FaHeart fontSize={29} />
-                                <span className="count">{heart}</span>
+                                {heart?<span className="count">{heart}</span>:''}
                             </button>
 
-                            <button className="action-btn" onClick={()=>{setisDialogName("Shopping Bag");openDialog()}}>
+                            <button className="action-btn" onClick={() => { setisDialogName("Shopping Bag"); openDialog() }}>
                                 <FaShoppingBag fontSize={29} />
-                                <span className="count">{bagCount}</span>
+                                {bagCount?<span className="count">{bagCount}</span>:''}
                             </button>
                         </div>
                     </div>
@@ -127,7 +127,7 @@ export default function Header() {
                                                                     <img src={item.image} alt={item.title} width="250" height="119" />
                                                                 </a>
                                                             ) : (
-                                                                <a onClick={() => handleMenuTitleClick(item.title)} style={{ width: 'auto', whiteSpace: 'nowrap' }}>{item.title}</a>
+                                                                <a onClick={() => handleMenuTitleClick(item.title)} style={{ width: 'auto', whiteSpace: 'nowrap', cursor: 'pointer' }}>{item.title}</a>
                                                             )}
                                                         </li>
                                                     ))}
@@ -141,21 +141,18 @@ export default function Header() {
                     </div>
                 </nav>
                 <div className="mobile-bottom-navigation">
-                    <button className="action-btn" data-mobile-menu-open-btn>
-                        <FaAlignJustify />
-                    </button>
-                    <button className="action-btn">
-                        <FaShoppingBag />
-                        <span className="count">0</span>
-                    </button>
-                    <button className="action-btn">
+                    <button className="action-btn" onClick={()=>navigate('/')}>
                         <FaHome />
                     </button>
-                    <button className="action-btn">
-                        <FaHeart />
-                        <span className="count">0</span>
+                    <button className="action-btn" onClick={() => { setisDialogName("Shopping Bag"); openDialog() }}>
+                        <FaShoppingBag />
+                        {bagCount?<span className="count">{bagCount}</span>:''}
                     </button>
-                    <button className="action-btn" data-mobile-menu-open-btn>
+                    <button className="action-btn" onClick={() => { setisDialogName("Heart Bag"); openDialog() }}>
+                        <FaHeart />
+                        {heart?<span className="count">{heart}</span>:''}
+                    </button>
+                    <button className="action-btn" onClick={()=>navigate('/sideBarMenu')}>
                         <FaGripVertical />
                         <span className="count">0</span>
                     </button>
@@ -163,9 +160,11 @@ export default function Header() {
             </header>
             <DilogBox isOpen={isDialogOpen} closeDialog={closeDialog} dilogName={isDialogName}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', lineHeight: 0.8 }}>
-                    <h2>Cart</h2>
+                    <h2>{isDialogName}</h2>
                     <GrClose onClick={closeDialog} style={{ cursor: 'pointer', fontWeight: 900 }} />
                 </div>
+                <br/>
+                <hr/>
             </DilogBox>
 
         </>
