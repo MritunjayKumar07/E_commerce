@@ -3,10 +3,11 @@ import { FaStar, FaStarHalfAlt, FaRegStar, FaHeart, FaEye, FaShoppingBag } from 
 import { IoRepeat } from "react-icons/io5";
 import { useParams } from 'react-router-dom';
 import { MirchMasalaProduct } from '../../server/Api_MirchMasalaProduct';
-import { Link } from 'react-router-dom';
-
+import { Link, useNavigate } from 'react-router-dom';
+// MirchMasalaLikeCart
 
 const Showcase = ({ product }) => {
+    const navigate = useNavigate();
 
     const AddToCart = (ProductId) => {
         let cartItems = localStorage.getItem('MirchMasalaCart');
@@ -24,8 +25,22 @@ const Showcase = ({ product }) => {
         localStorage.setItem('MirchMasalaCart', JSON.stringify(cartItems));
     }
 
+    const likeCart = (productId) => {
+        let cartItems = localStorage.getItem('MirchMasalaLikeCart');
+        if (cartItems) {
+            cartItems = JSON.parse(cartItems);
+            if (!cartItems.includes(productId)) {
+                cartItems = [...cartItems, productId];
+                localStorage.setItem('MirchMasalaLikeCart', JSON.stringify(cartItems));
+            }
+        } else {
+            cartItems = [productId];
+            localStorage.setItem('MirchMasalaLikeCart', JSON.stringify(cartItems));
+        }
+    };
+
     return (
-        <Link to={`/ProductDetail/${product.id}`} className="showcase" key={product.id} >
+        <div className="showcase" key={product.id} >
             <div className="showcase-banner">
                 <img src={product.images[0]} alt={product.title} width="300" className="product-img default" />
                 <img src={product.images[1]} alt={product.title} width="300" className="product-img hover" />
@@ -33,10 +48,10 @@ const Showcase = ({ product }) => {
                 {product.deal && <p className="showcase-badge">{product.deal}</p>}
 
                 <div className="showcase-actions">
-                    <button className="btn-action">
+                    <button className="btn-action" onClick={()=>likeCart(product.ProductId)}>
                         <FaHeart />
                     </button>
-                    <button className="btn-action">
+                    <button className="btn-action" onClick={()=>navigate(`/ProductDetail/${product.id}`)}>
                         <FaEye />
                     </button>
                     {/* <button className="btn-action">
@@ -48,7 +63,7 @@ const Showcase = ({ product }) => {
                 </div>
             </div>
 
-            <div className="showcase-content">
+            <Link to={`/ProductDetail/${product.id}`} className="showcase-content">
                 <a href="#" className="showcase-category">{product.name}</a>
                 <h3>
                     <a href="#" className="showcase-title">{product.title}</a>
@@ -66,8 +81,8 @@ const Showcase = ({ product }) => {
                     <p className="price">${product.discountedPrice}</p>
                     {product.originalPrice && <del>${product.originalPrice}</del>}
                 </div>
-            </div>
-        </Link>
+            </Link>
+        </div>
     )
 };
 

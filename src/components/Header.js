@@ -18,7 +18,8 @@ import DilogBox from './DilogBox';
 
 export default function Header() {
     const [isDialogOpen, setDialogOpen] = useState(false);
-    const [heartCount, setHeartCount] = useState(0);
+    const [isDialogName, setisDialogName] = useState("");
+    const [heart, setHeart] = useState(0);
     const [bagCount, setBagCount] = useState(0);
     const navigate = useNavigate();
 
@@ -42,10 +43,20 @@ export default function Header() {
             setBagCount(parsedCartItems.length);
         };
 
+        const fetchLikeHeart = async () => {
+            const cartItems = await localStorage.getItem('MirchMasalaLikeCart');
+            const parsedCartItems = cartItems ? JSON.parse(cartItems) : [];
+            setHeart(parsedCartItems.length);
+        };
+
         fetchCartCount();
-        const intervalId = setInterval(fetchCartCount, 1000);
+        fetchLikeHeart();
+        const intervalId = setInterval(() => {
+            fetchCartCount();
+            fetchLikeHeart();
+        }, 1000);
         return () => clearInterval(intervalId);
-    }, [heartCount, bagCount]); 
+    }, [heart, bagCount]);
 
 
 
@@ -71,12 +82,12 @@ export default function Header() {
                                 <FaUser fontSize={29} />
                             </button>
 
-                            <button className="action-btn" onClick={openDialog}>
+                            <button className="action-btn" onClick={()=>{setisDialogName("Heart Bag");openDialog()}}>
                                 <FaHeart fontSize={29} />
-                                <span className="count">{heartCount}</span>
+                                <span className="count">{heart}</span>
                             </button>
 
-                            <button className="action-btn" onClick={openDialog}>
+                            <button className="action-btn" onClick={()=>{setisDialogName("Shopping Bag");openDialog()}}>
                                 <FaShoppingBag fontSize={29} />
                                 <span className="count">{bagCount}</span>
                             </button>
@@ -150,12 +161,12 @@ export default function Header() {
                     </button>
                 </div>
             </header>
-            <DilogBox isOpen={isDialogOpen} closeDialog={closeDialog}>
-  <div style={{ display: 'flex', justifyContent: 'space-between', lineHeight: 0.8 }}>
-    <h2>Cart</h2>
-    <GrClose onClick={closeDialog} style={{ cursor: 'pointer', fontWeight: 900 }} />
-  </div>
-</DilogBox>
+            <DilogBox isOpen={isDialogOpen} closeDialog={closeDialog} dilogName={isDialogName}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', lineHeight: 0.8 }}>
+                    <h2>Cart</h2>
+                    <GrClose onClick={closeDialog} style={{ cursor: 'pointer', fontWeight: 900 }} />
+                </div>
+            </DilogBox>
 
         </>
     )

@@ -144,10 +144,18 @@ const IncreaseDecreaseAmount = styled.div`
   }
 `;
 
-export default function DialogBox({ isOpen, children, closeDialog }) {
+export default function DialogBox({ isOpen, children, closeDialog, dilogName }) {
   const [items, setItems] = useState([]);
   const navigate = useNavigate();
 
+  //
+  //
+  //
+  // Work On dilogName
+  //
+  //
+  //
+  
   const updateCart = (ProductId, operation) => {
     let cartItems = localStorage.getItem('MirchMasalaCart');
     if (cartItems) {

@@ -6,7 +6,7 @@ import Footer from './components/Footer';
 import Header from './components/Header';
 import Modal from './components/Modal';
 import MainProduct from './components/Products/MainProduct';
-import AddToCart from './Pages/AddToCart';
+// import AddToCart from './Pages/AddToCart';
 import CheckOut from './Pages/CheckOut';
 
 function App() {
@@ -20,7 +20,7 @@ function App() {
         <Route path='/home' element={<Home/>}/>
         <Route path='/ProductDetail/:id' element={<ProductCard/>}/>{/* Show Single Product with simlear product */} 
         <Route path='/Products/:category' element={<MainProduct/>}/>
-        <Route path='/AddToCart' element={<AddToCart/>}/>
+        {/* <Route path='/AddToCart' element={<AddToCart/>}/> */}
         <Route path='/CheckOut' element={<CheckOut/>}/>
         <Route path='*' element={<Page404/>}/>
       </Routes>
