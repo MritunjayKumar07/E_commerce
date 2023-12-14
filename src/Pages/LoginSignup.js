@@ -37,21 +37,22 @@ const Title = styled.h1`
   color: #fff;
   font-size: 28px;
   text-align: center;
-  margin-top:10px;
+  margin-top: 10px;
   margin-bottom: 5px;
   font-family: 'Poppins', sans-serif;
   letter-spacing: 1px;
 `;
 
 const SubTitle = styled.h3`
-color: #ec9d65;
-font-weight: normal;
-text-align: center;
-margin-bottom: 15px;
-font-family: 'Poppins', sans-serif;
-letter-spacing: 1px;
-@media (max-width: 480px){
-  font-size: 14px;
+  color: #ec9d65;
+  font-weight: normal;
+  text-align: center;
+  margin-bottom: 15px;
+  font-family: 'Poppins', sans-serif;
+  letter-spacing: 1px;
+
+  @media (max-width: 480px) {
+    font-size: 14px;
   }
 `;
 
@@ -68,7 +69,7 @@ const Form = styled.form`
     border: none;
     border-radius: 8px;
     color: #080B0E;
-    font-weight:500;
+    font-weight: 500;
   }
 
   button {
@@ -79,7 +80,7 @@ const Form = styled.form`
     background-color: #a674d6;
     color: #fff;
     cursor: pointer;
-    margin-top:20px;
+    margin-top: 20px;
     transition: background-color 0.3s;
 
     &:hover {
@@ -89,49 +90,48 @@ const Form = styled.form`
 `;
 
 const SmallText = styled.span`
-color:#aaa;
-white:100%;
-font-size: 14px;
-text-align:center;
-margin-top:25px;
-display:block;
+  color: #aaa;
+  white: 100%;
+  font-size: 14px;
+  text-align: center;
+  margin-top: 25px;
+  display: block;
 `;
 
 const SignUp = styled.span`
-cursor:pointer;
-color:#a674d6;
-padding-left:2px;
-fontSize:12px;
-transition: color 0.3s;
-&:hover{
-  color:#9c5cbc;
+  cursor: pointer;
+  color: #a674d6;
+  padding-left: 2px;
+  font-size: 12px;
+  transition: color 0.3s;
+
+  &:hover {
+    color: #9c5cbc;
   }
 `;
 
 const ForgotButton = styled.span`
-float:right;
-color:#a674d6;
-cursor:pointer;
-lineHeight:20px;
-borderLeft:1px solid #ddd;
-height:20px;
-display:inline-block;
-verticalAlign:middle;
-marginTop:20px;
-marginRight:10px;
-&:hover{
-  color:#9c5cbc;
+  float: right;
+  color: #a674d6;
+  cursor: pointer;
+  line-height: 20px;
+  border-left: 1px solid #ddd;
+  height: 20px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: 20px;
+  margin-right: 10px;
+
+  &:hover {
+    color: #9c5cbc;
   }
 `;
 
-
-
-
 export default function LoginSignup() {
-  const [activeContainer, setActiveContainer] = useState("Login")
+  const [activeContainer, setActiveContainer] = useState('Login');
 
   const ForgotContainer = () => {
-    const [userForgot, setUserForgot] = useState({ email: "" });
+    const [userForgot, setUserForgot] = useState({ email: '' });
 
     const handleInputChange = (e) => {
       const { name, value } = e.target;
@@ -144,10 +144,10 @@ export default function LoginSignup() {
         const response = await axios.post('http://localhost:9000/mirchmasala/forgotPassword', userForgot);
         console.log(response.data);
       } catch (error) {
-        if (error.response.status === 409) {
+        if (error.response && error.response.status === 409) {
           alert(error.response.data.message);
         } else {
-          console.error('Error during signup:', error);
+          console.error('Error during forgot password:', error);
         }
       }
     };
@@ -165,7 +165,7 @@ export default function LoginSignup() {
           <input
             type="email"
             placeholder="Email Id"
-            name='email'
+            name="email"
             required
             autoComplete="off"
             pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
@@ -174,11 +174,13 @@ export default function LoginSignup() {
           />
           <button type="submit">Submit</button>
         </Form>
-        <SmallText>Don't have an account?<SignUp onClick={() => setActiveContainer("SignUp")}>SignUp</SignUp></SmallText>
-        <ForgotButton onClick={() => setActiveContainer("FORGOT PASSWORD")}>FORGOT PASSWORD</ForgotButton>
+        <SmallText>
+          Don't have an account?<SignUp onClick={() => setActiveContainer('SignUp')}>SignUp</SignUp>
+        </SmallText>
+        <ForgotButton onClick={() => setActiveContainer('FORGOT PASSWORD')}>FORGOT PASSWORD</ForgotButton>
       </Container>
-    )
-  }
+    );
+  };
 
   const SignupContainer = () => {
     const [userSignup, setUserSignup] = useState({
@@ -197,9 +199,9 @@ export default function LoginSignup() {
       e.preventDefault();
       try {
         const response = await axios.post('http://localhost:9000/mirchmasala/signup', userSignup);
-        console.log(response.data);
+        alert(response.data.message);
       } catch (error) {
-        if (error.response.status === 409) {
+        if (error.response && error.response.status === 409) {
           alert(error.response.data.message);
         } else {
           console.error('Error during signup:', error);
@@ -257,8 +259,7 @@ export default function LoginSignup() {
           <button type="submit">Submit</button>
         </Form>
         <SmallText>
-          Don't have an account?
-          <SignUp onClick={() => setActiveContainer('Login')}>Login</SignUp>
+          Don't have an account?<SignUp onClick={() => setActiveContainer('Login')}>Login</SignUp>
         </SmallText>
         <ForgotButton onClick={() => setActiveContainer('FORGOT PASSWORD')}>FORGOT PASSWORD</ForgotButton>
       </Container>
@@ -270,23 +271,26 @@ export default function LoginSignup() {
       Username: '',
       Password: '',
     });
+
     const handleInputChange = (e) => {
       const { name, value } = e.target;
       setUserLogin((prevUser) => ({ ...prevUser, [name]: value }));
     };
+
     const handleSubmitLogin = async (e) => {
       e.preventDefault();
       try {
         const response = await axios.post('http://localhost:9000/mirchmasala/login', userLogin);
         console.log(response.data);
       } catch (error) {
-        if (error.response.status === 409) {
+        if (error.response && error.response.status === 409) {
           alert(error.response.data.message);
         } else {
           console.error('Error during login:', error);
         }
       }
     };
+
     return (
       <Container>
         <Logo>
@@ -300,30 +304,32 @@ export default function LoginSignup() {
           <input
             type="text"
             placeholder="Username"
-            name='Username'
+            name="Username"
             required
             onChange={handleInputChange}
           />
           <input
             type="password"
             placeholder="Password"
-            name='Password'
+            name="Password"
             required
             autoComplete="off"
             onChange={handleInputChange}
           />
           <button type="submit">Login</button>
         </Form>
-        <SmallText>Don't have an account?<SignUp onClick={() => setActiveContainer("SignUp")}>SignUp</SignUp></SmallText>
-        <ForgotButton onClick={() => setActiveContainer("FORGOT PASSWORD")}>FORGOT PASSWORD</ForgotButton>
+        <SmallText>
+          Don't have an account?<SignUp onClick={() => setActiveContainer('SignUp')}>SignUp</SignUp>
+        </SmallText>
+        <ForgotButton onClick={() => setActiveContainer('FORGOT PASSWORD')}>FORGOT PASSWORD</ForgotButton>
       </Container>
-    )
-  }
+    );
+  };
 
-  let container =
-    activeContainer === "SignUp" ? SignupContainer :
-      activeContainer === "FORGOT PASSWORD" ? ForgotContainer :
+  let ContainerComponent =
+    activeContainer === 'SignUp' ? SignupContainer :
+      activeContainer === 'FORGOT PASSWORD' ? ForgotContainer :
         LoginContainer;
 
-  return container();
+  return <ContainerComponent />;
 }
