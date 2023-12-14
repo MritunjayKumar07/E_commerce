@@ -5,6 +5,8 @@ import {
     FaInstagram,
     FaLinkedinIn,
 } from "react-icons/fa";
+import { RiLoginCircleFill } from "react-icons/ri";
+import { Link } from 'react-router-dom';
 
 export default function HeaderTop() {
     return (
@@ -42,9 +44,7 @@ export default function HeaderTop() {
                     <select name="currency">
                         <option value="rupee">RUPEE ₹</option>
                     </select>
-                    <select name="language">
-                        <option value="en-US">English</option>
-                    </select>
+                    <Link to={'/LoginSignup'}><RiLoginCircleFill fontSize={24} color='#000'/></Link>
                 </div>
             </div>
         </div>

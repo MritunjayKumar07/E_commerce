@@ -18,7 +18,7 @@ const DialogContainer = styled.div`
   z-index: 1000;
   opacity: 0;
   animation: fadeIn 0.3s ease-out forwards;
-  border-radius: 8px 8px 8px 8px;
+  border-radius: 10px;
   overflow: scroll;
   scrollbar-width: thin;
   scrollbar-color: hsl(0, 0%, 80%) transparent;
