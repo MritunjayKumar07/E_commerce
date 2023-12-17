@@ -6,6 +6,7 @@ import axios from 'axios';
 import VerificationCode from './VerificationCode';
 import PasswordGenerate from './PasswordGenerate';
 import { FaEye, FaRegEyeSlash } from "react-icons/fa6";
+import Loading from '../../Loading';
 
 
 
@@ -249,6 +250,7 @@ export default function LoginSignup() {
   };
 
   const SignupContainer = () => {
+    const [isLoading, setIsLoading] = useState(false);
     const [isDisable, setIsDisable] = useState(false);
     const [userSignup, setUserSignup] = useState({
       firstName: '',
@@ -264,7 +266,8 @@ export default function LoginSignup() {
 
     const handleSubmitSignup = async (e) => {
       e.preventDefault();
-      setIsDisable(true)
+      setIsDisable(true);
+      setIsLoading(true);
       try {
         const response = await axios.post('http://localhost:9000/mirchmasala/signup', userSignup);
         alert(response.data.message);
@@ -273,6 +276,7 @@ export default function LoginSignup() {
         startCountdown();
       } catch (error) {
         setIsDisable(false)
+        setIsLoading(false);
         if (error.response && error.response.status === 409) {
           alert(error.response.data.message);
         } else {
@@ -290,7 +294,7 @@ export default function LoginSignup() {
         </Logo>
         <Title>Mirch Masala</Title>
         <SubTitle>SignUp</SubTitle>
-        <Form onSubmit={handleSubmitSignup}>
+        {isLoading ? <Loading loadingFor={"Wait a second"}/> : <Form onSubmit={handleSubmitSignup}>
           <input
             type="text"
             name="firstName"
@@ -327,7 +331,7 @@ export default function LoginSignup() {
             onChange={handleInputChange}
           />
           <button type="submit" disabled={isDisable} style={isDisable ? { backgroundColor: '#bd8deb' } : {}}>Submit</button>
-        </Form>
+        </Form>}
         <SmallText>
           Don't have an account?<SignUp onClick={() => setActiveContainer('Login')}>Login</SignUp>
         </SmallText>
