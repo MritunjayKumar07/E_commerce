@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, {useState } from 'react';
 import styled from 'styled-components';
 import LogoImage from '../../assets/images/logo/logo.png';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import VerificationCode from './VerificationCode';
 
 const Container = styled.div`
   position: fixed;

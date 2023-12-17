@@ -5,6 +5,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import VerificationCode from './VerificationCode';
 import PasswordGenerate from './PasswordGenerate';
+import { FaEye, FaRegEyeSlash } from "react-icons/fa6";
+
+
 
 const Container = styled.div`
   position: fixed;
@@ -87,6 +90,36 @@ const Form = styled.form`
 
     &:hover {
       background-color: #8e5bba;
+    }
+  }
+`;
+
+const PasswordView = styled.div`
+  position: relative;
+  width: 100%;
+
+  input {
+    width: calc(100% - 0px); 
+    padding: 10px;
+    margin-bottom: 18px;
+    border: none;
+    border-radius: 8px;
+    color: #080B0E;
+    font-weight: 500;
+  }
+
+  svg {
+    position: absolute;
+    top: 15%;
+    right: 6px;
+    color: #000;
+    cursor: pointer;
+    font-size: 24px;
+    transition: color 0.3s;
+    font-weight: 600;
+
+    &:hover {
+      color: #a674d6;
     }
   }
 `;
@@ -305,6 +338,7 @@ export default function LoginSignup() {
   };
 
   const LoginContainer = () => {
+    const [showPassword, setShowPassword] = useState(false);
     const [userLogin, setUserLogin] = useState({
       usernameOrEmail: '',
       Password: '',
@@ -359,14 +393,21 @@ export default function LoginSignup() {
             required
             onChange={handleInputChange}
           />
-          <input
-            type="password"
-            placeholder="Password"
-            name="Password"
-            required
-            autoComplete="off"
-            onChange={handleInputChange}
-          />
+          <PasswordView>
+            <input
+              type={showPassword ? 'text' : 'password'}
+              placeholder="Password"
+              name="Password"
+              required
+              autoComplete="off"
+              onChange={handleInputChange}
+            />
+            {showPassword ? (
+              <FaEye onClick={() => setShowPassword(false)} />
+            ) : (
+              <FaRegEyeSlash onClick={() => setShowPassword(true)} />
+            )}
+          </PasswordView>
           <button type="submit">Login</button>
         </Form>
         <SmallText>
