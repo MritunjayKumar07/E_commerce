@@ -1,4 +1,4 @@
-import React, {useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import LogoImage from '../../assets/images/logo/logo.png';
 import { Link, useNavigate } from 'react-router-dom';
@@ -112,68 +112,69 @@ const SignUp = styled.span`
 `;
 
 
-export default function PasswordGenerate({emailVerification}) {
-    const navigate = useNavigate();
-    const [userPassword, setUserPassword] = useState({
-        Password: '',
-        CPassword: '',
-        email: emailVerification
-    });
+export default function PasswordGenerate({ emailVerification }) {
+  const navigate = useNavigate();
+  const [userPassword, setUserPassword] = useState({
+    Password: '',
+    CPassword: '',
+    email: emailVerification
+  });
 
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setUserPassword((prevUser) => ({ ...prevUser, [name]: value }));
-    };
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setUserPassword((prevUser) => ({ ...prevUser, [name]: value }));
+  };
 
-    const handleSubmitPassword = async (e) => {
-        e.preventDefault();
-        try {
-            if (userPassword.Password !== userPassword.CPassword) {
-                alert('Passwords do not match.');
-                return;
-            } else {
-                const response = await axios.post('http://localhost:9000/mirchmasala/passwordCreate', { Password: userPassword.Password, email: userPassword.email });
-                alert(response.data.message);
-                localStorage.setItem("setEmailVerification"," ");
-                localStorage.setItem("setActiveContainer","Login");
-            }
-        } catch (error) {
-            if (error.response && error.response.status === 409) {
-                alert(error.response.data.message);
-            } else {
-                console.error('Error during creating Password:', error);
-            }
-        }
-    };
-    return (
-        <Container>
-            <Logo>
-                <Link to={'/'}>
-                    <img src={LogoImage} alt="Logo" />
-                </Link>
-            </Logo>
-            <Title>Mirch Masala</Title>
-            <SubTitle>Create Password</SubTitle>
-            <Form onSubmit={handleSubmitPassword}>
-                <input
-                    type="password"
-                    name="Password"
-                    placeholder="Password"
-                    required
-                    onChange={handleInputChange}
-                />
-                <input
-                    type="text"
-                    name="CPassword"
-                    placeholder="Confirm Password"
-                    required
-                    onChange={handleInputChange}
-                />
-                <button type="submit">Submit</button>
-            </Form>
-            <SmallText>
-                Alwarady have an account?<SignUp onClick={() => localStorage.setItem("setActiveContainer","Login")}>Login</SignUp>
-            </SmallText>
-        </Container>
-    )
+  const handleSubmitPassword = async (e) => {
+    e.preventDefault();
+    try {
+      if (userPassword.Password !== userPassword.CPassword) {
+        alert('Passwords do not match.');
+        return;
+      } else {
+        const response = await axios.post('http://localhost:9000/mirchmasala/passwordCreate', { Password: userPassword.Password, email: userPassword.email });
+        alert(response.data.message);
+        localStorage.setItem("setEmailVerification", undefined);
+        localStorage.setItem("setActiveContainer",undefined);
+        window.location.reload();
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 409) {
+        alert(error.response.data.message);
+      } else {
+        console.error('Error during creating Password:', error);
+      }
+    }
+  };
+  return (
+    <Container>
+      <Logo>
+        <Link to={'/'}>
+          <img src={LogoImage} alt="Logo" />
+        </Link>
+      </Logo>
+      <Title>Mirch Masala</Title>
+      <SubTitle>Create Password</SubTitle>
+      <Form onSubmit={handleSubmitPassword}>
+        <input
+          type="password"
+          name="Password"
+          placeholder="Password"
+          required
+          onChange={handleInputChange}
+        />
+        <input
+          type="text"
+          name="CPassword"
+          placeholder="Confirm Password"
+          required
+          onChange={handleInputChange}
+        />
+        <button type="submit">Submit</button>
+      </Form>
+      <SmallText>
+        Alwarady have an account?<SignUp onClick={() => localStorage.setItem("setActiveContainer", "Login")}>Login</SignUp>
+      </SmallText>
+    </Container>
+  )
 }

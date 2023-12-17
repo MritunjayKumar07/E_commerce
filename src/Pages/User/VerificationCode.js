@@ -159,6 +159,7 @@ export default function VerificationCode({ countdown, countdownActive, emailVeri
   });
 
   const handleInputChange = (index, value) => {
+    // console.log("Event object:", value);
     setUserVerificationCode((prevUser) => {
       const updatedCode = [...prevUser.code];
       updatedCode[index] = value;
@@ -170,22 +171,25 @@ export default function VerificationCode({ countdown, countdownActive, emailVeri
   };
 
   const handleSubmitVerificationCode = async (e) => {
-    e.preventDefault();
-    const fullVerificationCode = parseInt(userVerificationCode.code.join(''), 10);
-    // console.log(fullVerificationCode)
-    setIsDisable(true);
-    try {
-      const response = await axios.post('http://localhost:9000/mirchmasala/userVerificationCode', {
-        code : fullVerificationCode,
-        email : userVerificationCode.email,
-      });
-      if (response.data.status) {
-        localStorage.setItem('setActiveContainer', 'PasswordCreate');
+    if (e) {
+      e.preventDefault();
+      const fullVerificationCode = parseInt(userVerificationCode.code.join(''), 10);
+      // console.log(fullVerificationCode)
+      setIsDisable(true);
+      try {
+        const response = await axios.post('http://localhost:9000/mirchmasala/userVerificationCode', {
+          code: fullVerificationCode,
+          email: userVerificationCode.email,
+        });
+        if (response.data.status) {
+          localStorage.setItem('setActiveContainer', 'PasswordCreate');
+        }
+      } catch (error) {
+        setIsDisable(false);
+        alert(error.response?.data?.message || 'Error during verification');
       }
-    } catch (error) {
-      setIsDisable(false);
-      alert(error.response?.data?.message || 'Error during verification');
     }
+    // console.log(e)
   };
 
   const focusNextInput = (index) => {
@@ -221,7 +225,6 @@ export default function VerificationCode({ countdown, countdownActive, emailVeri
               required
               value={userVerificationCode.code[index] || ''}
               onChange={(e) => {
-                e.preventDefault();
                 handleInputChange(index, e.target.value);
                 focusNextInput(index);
               }}
