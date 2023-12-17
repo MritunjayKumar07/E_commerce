@@ -162,7 +162,7 @@ export default function VerificationCode({ countdown, countdownActive, emailVeri
   const handleSubmitVerificationCode = async (e) => {
     e.preventDefault();
     const fullVerificationCode = parseInt(userVerificationCode.code.join(''), 10);
-    console.log(fullVerificationCode)
+    // console.log(fullVerificationCode)
     setIsDisable(true);
     try {
       const response = await axios.post('http://localhost:9000/mirchmasala/userVerificationCode', {

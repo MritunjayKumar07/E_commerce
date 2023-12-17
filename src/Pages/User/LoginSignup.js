@@ -280,7 +280,6 @@ export default function LoginSignup() {
             name="email"
             placeholder="Email id"
             required
-            autoComplete="off"
             title="Enter a valid Email id"
             onChange={handleInputChange}
           />
@@ -289,9 +288,9 @@ export default function LoginSignup() {
             name="contactNumber"
             placeholder="Contact number"
             required
+            inputMode="numeric"
             pattern="[0-9]{10,12}"
             maxLength={12}
-            autoComplete="off"
             title="Enter a valid Contact number"
             onChange={handleInputChange}
           />
@@ -320,17 +319,18 @@ export default function LoginSignup() {
       e.preventDefault();
       try {
         const response = await axios.post('http://localhost:9000/mirchmasala/login', userLogin);
-        console.log(response);
+        // console.log(response);
         if (response.data.status) {
           navigate('/');
         } else {
           alert(response.data.message);
         }
       } catch (error) {
-        console.error('Error during login:', error);
+        // console.error('Error during login:', error);
         if (error.response) {
           if (error.response.status === 404) {
-            alert('User not found');
+            alert('Not found in my Data Base, SignUp now...');
+            setActiveContainer('SignUp');
           } else if (error.response.status === 401) {
             alert('Invalid username or password');
           } else if (error.response.status === 500) {
