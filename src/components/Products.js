@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { IoIosCloseCircle } from "react-icons/io";
 
-import { getProduct } from '../server/api';
+// import { getProduct } from '../server/api';
 import ProductMinimal from './Products/ProductMinimal';
 import ShowcaseContainer from './Products/ShowcaseContainer';
 import DealOfThe from './Products/DealOfThe';
@@ -9,19 +9,19 @@ import MainProduct from './Products/MainProduct';
 import SideBar from './Products/SideBar';
 
 export default function Products() {
-  const [productData, setProductData] = useState([]);
+  // const [productData, setProductData] = useState([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await getProduct();
-        setProductData(data);
-      } catch (error) {
-        console.error('Error while fetching data:', error);
-      }
-    };
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const data = await getProduct();
+  //       setProductData(data);
+  //     } catch (error) {
+  //       console.error('Error while fetching data:', error);
+  //     }
+  //   };
+  //   fetchData();
+  // }, []);
 
   return (
     <div className="product-container">

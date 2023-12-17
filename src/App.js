@@ -9,7 +9,8 @@ import MainProduct from './components/Products/MainProduct';
 // import AddToCart from './Pages/AddToCart';
 import CheckOut from './Pages/CheckOut';
 import SideBarMenu from './components/Header/SideBarMenu';
-import LoginSignup from './Pages/LoginSignup';
+import LoginSignup from './Pages/User/LoginSignup';
+import UserDashboard from './Pages/User/UserDashboard';
 
 function App() {
   const location = useLocation();
@@ -26,6 +27,7 @@ function App() {
         <Route path='/Products/:category' element={<MainProduct />} />
         <Route path='/sideBarMenu' element={<SideBarMenu />} />
         <Route path='/LoginSignup' element={<LoginSignup />} />
+        <Route path='/UserDashboard' element={<UserDashboard/>} />
         <Route path='/CheckOut' element={<CheckOut />} />
         <Route path='*' element={<Page404 />} />
       </Routes>

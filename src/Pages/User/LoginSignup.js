@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import LogoImage from '../assets/images/logo/logo.png';
-import { Link } from 'react-router-dom';
+import LogoImage from '../../assets/images/logo/logo.png';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import VerificationCode from './VerificationCode';
+import PasswordGenerate from './PasswordGenerate';
 
 const Container = styled.div`
   position: fixed;
@@ -102,7 +104,8 @@ const SignUp = styled.span`
   cursor: pointer;
   color: #a674d6;
   padding-left: 2px;
-  font-size: 12px;
+  font-size: 14px;
+  font-weight:600;
   transition: color 0.3s;
 
   &:hover {
@@ -115,7 +118,7 @@ const ForgotButton = styled.span`
   color: #a674d6;
   cursor: pointer;
   line-height: 20px;
-  border-left: 1px solid #ddd;
+  border-left: none;
   height: 20px;
   display: inline-block;
   vertical-align: middle;
@@ -128,7 +131,37 @@ const ForgotButton = styled.span`
 `;
 
 export default function LoginSignup() {
+  const [countdown, setCountdown] = useState(300); // 7 minutes in seconds
+  const [countdownActive, setCountdownActive] = useState(false);
   const [activeContainer, setActiveContainer] = useState('Login');
+  const [emailVerification, setEmailVerification] = useState();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    var retrievedValue = localStorage.getItem('setActiveContainer');
+    var retrievedValueVerification = localStorage.getItem('setEmailVerification');
+    if (retrievedValue) {
+      setActiveContainer(retrievedValue);
+      localStorage.clear('setActiveContainer');
+    }
+    if (retrievedValueVerification) {
+      setEmailVerification(retrievedValueVerification);
+      localStorage.clear('setEmailVerification');
+    }
+  })
+
+  const startCountdown = () => {
+    setCountdownActive(true);
+    const interval = setInterval(() => {
+      setCountdown((prev) => prev - 1);
+    }, 1000);
+
+    // Clear the interval after 7 minutes
+    setTimeout(() => {
+      setCountdownActive(false);
+      clearInterval(interval);
+    }, 300000);
+  };
 
   const ForgotContainer = () => {
     const [userForgot, setUserForgot] = useState({ email: '' });
@@ -142,7 +175,8 @@ export default function LoginSignup() {
       e.preventDefault();
       try {
         const response = await axios.post('http://localhost:9000/mirchmasala/forgotPassword', userForgot);
-        console.log(response.data);
+        alert(response.data.message);
+        setActiveContainer('Re-Generate VerificationCode')
       } catch (error) {
         if (error.response && error.response.status === 409) {
           alert(error.response.data.message);
@@ -168,7 +202,6 @@ export default function LoginSignup() {
             name="email"
             required
             autoComplete="off"
-            pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
             title="Enter a valid Email id"
             onChange={handleInputChange}
           />
@@ -183,6 +216,7 @@ export default function LoginSignup() {
   };
 
   const SignupContainer = () => {
+    const [isDisable, setIsDisable] = useState(false);
     const [userSignup, setUserSignup] = useState({
       firstName: '',
       lastName: '',
@@ -197,10 +231,16 @@ export default function LoginSignup() {
 
     const handleSubmitSignup = async (e) => {
       e.preventDefault();
+      setIsDisable(true)
       try {
         const response = await axios.post('http://localhost:9000/mirchmasala/signup', userSignup);
         alert(response.data.message);
+        localStorage.setItem('', 'PasswordCreate');
+        setEmailVerification(response.data.email)
+        setActiveContainer('Re-Generate VerificationCode')
+        startCountdown();
       } catch (error) {
+        setIsDisable(false)
         if (error.response && error.response.status === 409) {
           alert(error.response.data.message);
         } else {
@@ -241,7 +281,6 @@ export default function LoginSignup() {
             placeholder="Email id"
             required
             autoComplete="off"
-            pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
             title="Enter a valid Email id"
             onChange={handleInputChange}
           />
@@ -256,7 +295,7 @@ export default function LoginSignup() {
             title="Enter a valid Contact number"
             onChange={handleInputChange}
           />
-          <button type="submit">Submit</button>
+          <button type="submit" disabled={isDisable} style={isDisable ? { backgroundColor: '#bd8deb' } : {}}>Submit</button>
         </Form>
         <SmallText>
           Don't have an account?<SignUp onClick={() => setActiveContainer('Login')}>Login</SignUp>
@@ -268,7 +307,7 @@ export default function LoginSignup() {
 
   const LoginContainer = () => {
     const [userLogin, setUserLogin] = useState({
-      Username: '',
+      usernameOrEmail: '',
       Password: '',
     });
 
@@ -281,12 +320,24 @@ export default function LoginSignup() {
       e.preventDefault();
       try {
         const response = await axios.post('http://localhost:9000/mirchmasala/login', userLogin);
-        console.log(response.data);
-      } catch (error) {
-        if (error.response && error.response.status === 409) {
-          alert(error.response.data.message);
+        console.log(response);
+        if (response.data.status) {
+          navigate('/');
         } else {
-          console.error('Error during login:', error);
+          alert(response.data.message);
+        }
+      } catch (error) {
+        console.error('Error during login:', error);
+        if (error.response) {
+          if (error.response.status === 404) {
+            alert('User not found');
+          } else if (error.response.status === 401) {
+            alert('Invalid username or password');
+          } else if (error.response.status === 500) {
+            alert('Internal server error');
+          }
+        } else {
+          alert('Network error, please try again later.');
         }
       }
     };
@@ -304,7 +355,7 @@ export default function LoginSignup() {
           <input
             type="text"
             placeholder="Username"
-            name="Username"
+            name="usernameOrEmail"
             required
             onChange={handleInputChange}
           />
@@ -326,10 +377,26 @@ export default function LoginSignup() {
     );
   };
 
-  let ContainerComponent =
-    activeContainer === 'SignUp' ? SignupContainer :
-      activeContainer === 'FORGOT PASSWORD' ? ForgotContainer :
-        LoginContainer;
+  const renderContainer = () => {
+    switch (activeContainer) {
+      case 'SignUp':
+        return <SignupContainer />;
+      case 'Login':
+        return <LoginContainer />;
+      case 'FORGOT PASSWORD':
+        return <ForgotContainer />;
+      case 'Re-Generate VerificationCode':
+        return <VerificationCode
+          countdown={countdown}
+          countdownActive={countdownActive}
+          emailVerification={emailVerification}
+        />;
+      case 'PasswordCreate':
+        return <PasswordGenerate emailVerification={emailVerification} />;
+      default:
+        return <LoginContainer />;
+    }
+  };
 
-  return <ContainerComponent />;
+  return renderContainer();
 }
