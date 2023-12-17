@@ -268,7 +268,6 @@ export default function LoginSignup() {
       try {
         const response = await axios.post('http://localhost:9000/mirchmasala/signup', userSignup);
         alert(response.data.message);
-        localStorage.setItem('', 'PasswordCreate');
         setEmailVerification(response.data.email)
         setActiveContainer('Re-Generate VerificationCode')
         startCountdown();
@@ -433,7 +432,9 @@ export default function LoginSignup() {
           emailVerification={emailVerification}
         />;
       case 'PasswordCreate':
-        return <PasswordGenerate emailVerification={emailVerification} />;
+        return <PasswordGenerate
+          emailVerification={emailVerification}
+        />;
       default:
         return <LoginContainer />;
     }

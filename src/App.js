@@ -6,7 +6,6 @@ import Footer from './components/Footer';
 import Header from './components/Header';
 import Modal from './components/Modal';
 import MainProduct from './components/Products/MainProduct';
-// import AddToCart from './Pages/AddToCart';
 import CheckOut from './Pages/CheckOut';
 import SideBarMenu from './components/Header/SideBarMenu';
 import LoginSignup from './Pages/User/LoginSignup';

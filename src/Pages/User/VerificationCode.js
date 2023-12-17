@@ -24,6 +24,10 @@ const Container = styled.div`
   @media (max-width: 1055px) {
     width: 90%;
   }
+
+  @media (max-width: 480px) {
+    width: 100%;
+  }
 `;
 
 const Logo = styled.div`
@@ -85,6 +89,12 @@ const OTPInput = styled.input`
   &:focus {
     outline: none;
     border-color: #a674d6;
+  }
+  @media (max-width: 550px) {
+    width: 35px;
+    height: 35px;
+    padding: 5px;
+    margin: 5px;
   }
 `;
 
