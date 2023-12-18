@@ -1,14 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import LogoImage from '../../assets/images/logo/logo.png';
-import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import VerificationCode from './VerificationCode';
-import PasswordGenerate from './PasswordGenerate';
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import LogoImage from "../../assets/images/logo/logo.png";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import VerificationCode from "./VerificationCode";
+import PasswordGenerate from "./PasswordGenerate";
 import { FaEye, FaRegEyeSlash } from "react-icons/fa6";
-import Loading from '../../Loading';
-
-
+import Loading from "../../Loading";
 
 const Container = styled.div`
   position: fixed;
@@ -16,16 +14,16 @@ const Container = styled.div`
   left: 50%;
   width: 40%;
   max-width: 400px;
-  height: 650px;
+  height: 670px;
   transform: translate(-50%, -50%);
-  background: #080B0E;
+  background: #080b0e;
   padding: 20px;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
   border-radius: 15px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 
   @media (max-width: 1055px) {
     width: 90%;
@@ -45,7 +43,7 @@ const Title = styled.h1`
   text-align: center;
   margin-top: 10px;
   margin-bottom: 5px;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   letter-spacing: 1px;
 `;
 
@@ -54,7 +52,7 @@ const SubTitle = styled.h3`
   font-weight: normal;
   text-align: center;
   margin-bottom: 15px;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   letter-spacing: 1px;
 
   @media (max-width: 480px) {
@@ -74,7 +72,7 @@ const Form = styled.form`
     margin-bottom: 18px;
     border: none;
     border-radius: 8px;
-    color: #080B0E;
+    color: #080b0e;
     font-weight: 500;
   }
 
@@ -100,12 +98,12 @@ const PasswordView = styled.div`
   width: 100%;
 
   input {
-    width: calc(100% - 0px); 
+    width: calc(100% - 0px);
     padding: 10px;
     margin-bottom: 18px;
     border: none;
     border-radius: 8px;
-    color: #080B0E;
+    color: #080b0e;
     font-weight: 500;
   }
 
@@ -139,7 +137,7 @@ const SignUp = styled.span`
   color: #a674d6;
   padding-left: 2px;
   font-size: 14px;
-  font-weight:600;
+  font-weight: 600;
   transition: color 0.3s;
 
   &:hover {
@@ -167,22 +165,24 @@ const ForgotButton = styled.span`
 export default function LoginSignup() {
   const [countdown, setCountdown] = useState(300); // 7 minutes in seconds
   const [countdownActive, setCountdownActive] = useState(false);
-  const [activeContainer, setActiveContainer] = useState('Login');
+  const [activeContainer, setActiveContainer] = useState("Login");
   const [emailVerification, setEmailVerification] = useState();
   const navigate = useNavigate();
 
   useEffect(() => {
-    var retrievedValue = localStorage.getItem('setActiveContainer');
-    var retrievedValueVerification = localStorage.getItem('setEmailVerification');
+    var retrievedValue = localStorage.getItem("setActiveContainer");
+    var retrievedValueVerification = localStorage.getItem(
+      "setEmailVerification"
+    );
     if (retrievedValue) {
       setActiveContainer(retrievedValue);
-      localStorage.clear('setActiveContainer');
+      localStorage.clear("setActiveContainer");
     }
     if (retrievedValueVerification) {
       setEmailVerification(retrievedValueVerification);
-      localStorage.clear('setEmailVerification');
+      localStorage.clear("setEmailVerification");
     }
-  })
+  });
 
   const startCountdown = () => {
     setCountdownActive(true);
@@ -198,7 +198,8 @@ export default function LoginSignup() {
   };
 
   const ForgotContainer = () => {
-    const [userForgot, setUserForgot] = useState({ email: '' });
+    const [isLoading, setIsLoading] = useState(false);
+    const [userForgot, setUserForgot] = useState({ email: "" });
 
     const handleInputChange = (e) => {
       const { name, value } = e.target;
@@ -207,44 +208,63 @@ export default function LoginSignup() {
 
     const handleSubmitForgot = async (e) => {
       e.preventDefault();
+      setIsLoading(true);
       try {
-        const response = await axios.post('http://localhost:9000/mirchmasala/forgotPassword', userForgot);
+        const response = await axios.post(
+          "http://localhost:9000/mirchmasala/forgotPassword",
+          userForgot
+        );
         alert(response.data.message);
-        setActiveContainer('Re-Generate VerificationCode')
+        startCountdown();
+        setEmailVerification(response.data.email);
+        setActiveContainer("Re-Generate VerificationCode");
       } catch (error) {
-        if (error.response && error.response.status === 409) {
-          alert(error.response.data.message);
-        } else {
-          console.error('Error during forgot password:', error);
+        if (error.response) {
+          if (error.response.status === 404) {
+            alert("This Email is not registered with us");
+          } else if (error.response.status === 500) {
+            alert("Server Error! Please Try Again Later");
+          } else {
+            alert("Server Error! Please Try Again Later");
+          }
         }
+        setIsLoading(false);
       }
     };
 
     return (
       <Container>
         <Logo>
-          <Link to={'/'}>
+          <Link to={"/"}>
             <img src={LogoImage} alt="Logo" />
           </Link>
         </Logo>
         <Title>Mirch Masala</Title>
         <SubTitle>Forgot Password</SubTitle>
-        <Form onSubmit={handleSubmitForgot}>
-          <input
-            type="email"
-            placeholder="Email Id"
-            name="email"
-            required
-            autoComplete="off"
-            title="Enter a valid Email id"
-            onChange={handleInputChange}
-          />
-          <button type="submit">Submit</button>
-        </Form>
+        {isLoading ? (
+          <Loading loadingFor={"Wait a second"} />
+        ) : (
+          <Form onSubmit={handleSubmitForgot}>
+            <input
+              type="email"
+              placeholder="Email Id"
+              name="email"
+              required
+              autoComplete="off"
+              title="Enter a valid Email id"
+              onChange={handleInputChange}
+            />
+            <button type="submit">Submit</button>
+          </Form>
+        )}
         <SmallText>
-          Don't have an account?<SignUp onClick={() => setActiveContainer('SignUp')}>SignUp</SignUp>
+          Don't have an account?
+          <SignUp onClick={() => setActiveContainer("SignUp")}>SignUp</SignUp>
         </SmallText>
-        <ForgotButton onClick={() => setActiveContainer('FORGOT PASSWORD')}>FORGOT PASSWORD</ForgotButton>
+        <SmallText>
+          Alwarady have an account?
+          <SignUp onClick={() => setActiveContainer("Login")}>Login</SignUp>
+        </SmallText>
       </Container>
     );
   };
@@ -253,10 +273,10 @@ export default function LoginSignup() {
     const [isLoading, setIsLoading] = useState(false);
     const [isDisable, setIsDisable] = useState(false);
     const [userSignup, setUserSignup] = useState({
-      firstName: '',
-      lastName: '',
-      email: '',
-      contactNumber: '',
+      firstName: "",
+      lastName: "",
+      email: "",
+      contactNumber: "",
     });
 
     const handleInputChange = (e) => {
@@ -269,73 +289,89 @@ export default function LoginSignup() {
       setIsDisable(true);
       setIsLoading(true);
       try {
-        const response = await axios.post('http://localhost:9000/mirchmasala/signup', userSignup);
+        const response = await axios.post(
+          "http://localhost:9000/mirchmasala/signup",
+          userSignup
+        );
         alert(response.data.message);
-        setEmailVerification(response.data.email)
-        setActiveContainer('Re-Generate VerificationCode')
+        setEmailVerification(response.data.email);
+        setActiveContainer("Re-Generate VerificationCode");
         startCountdown();
       } catch (error) {
-        setIsDisable(false)
-        setIsLoading(false);
         if (error.response && error.response.status === 409) {
           alert(error.response.data.message);
         } else {
-          console.error('Error during signup:', error);
+          console.error("Error during signup:", error);
         }
+        setIsDisable(false);
+        setIsLoading(false);
       }
     };
 
     return (
       <Container>
         <Logo>
-          <Link to={'/'}>
+          <Link to={"/"}>
             <img src={LogoImage} alt="Logo" />
           </Link>
         </Logo>
         <Title>Mirch Masala</Title>
         <SubTitle>SignUp</SubTitle>
-        {isLoading ? <Loading loadingFor={"Wait a second"}/> : <Form onSubmit={handleSubmitSignup}>
-          <input
-            type="text"
-            name="firstName"
-            placeholder="First Name"
-            required
-            pattern="[A-Za-z]+"
-            onChange={handleInputChange}
-          />
-          <input
-            type="text"
-            name="lastName"
-            placeholder="Last Name"
-            required
-            pattern="[A-Za-z]+"
-            onChange={handleInputChange}
-          />
-          <input
-            type="email"
-            name="email"
-            placeholder="Email id"
-            required
-            title="Enter a valid Email id"
-            onChange={handleInputChange}
-          />
-          <input
-            type="text"
-            name="contactNumber"
-            placeholder="Contact number"
-            required
-            inputMode="numeric"
-            pattern="[0-9]{10,12}"
-            maxLength={12}
-            title="Enter a valid Contact number"
-            onChange={handleInputChange}
-          />
-          <button type="submit" disabled={isDisable} style={isDisable ? { backgroundColor: '#bd8deb' } : {}}>Submit</button>
-        </Form>}
+        {isLoading ? (
+          <Loading loadingFor={"Wait a second"} />
+        ) : (
+          <Form onSubmit={handleSubmitSignup}>
+            <input
+              type="text"
+              name="firstName"
+              placeholder="First Name"
+              required
+              pattern="[A-Za-z]+"
+              onChange={handleInputChange}
+            />
+            <input
+              type="text"
+              name="lastName"
+              placeholder="Last Name"
+              required
+              pattern="[A-Za-z]+"
+              onChange={handleInputChange}
+            />
+            <input
+              type="email"
+              name="email"
+              placeholder="Email id"
+              required
+              title="Enter a valid Email id"
+              onChange={handleInputChange}
+            />
+            <input
+              type="text"
+              name="contactNumber"
+              placeholder="Contact number"
+              required
+              inputMode="numeric"
+              pattern="[0-9]{10,12}"
+              maxLength={12}
+              title="Enter a valid Contact number"
+              onChange={handleInputChange}
+            />
+            <button
+              type="submit"
+              disabled={isDisable}
+              style={isDisable ? { backgroundColor: "#bd8deb" } : {}}
+            >
+              Submit
+            </button>
+          </Form>
+        )}
         <SmallText>
-          Don't have an account?<SignUp onClick={() => setActiveContainer('Login')}>Login</SignUp>
+          Don't have an account?
+          <SignUp onClick={() => setActiveContainer("Login")}>Login</SignUp>
         </SmallText>
-        <ForgotButton onClick={() => setActiveContainer('FORGOT PASSWORD')}>FORGOT PASSWORD</ForgotButton>
+        <ForgotButton onClick={() => setActiveContainer("FORGOT PASSWORD")}>
+          FORGOT PASSWORD
+        </ForgotButton>
       </Container>
     );
   };
@@ -343,8 +379,8 @@ export default function LoginSignup() {
   const LoginContainer = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [userLogin, setUserLogin] = useState({
-      usernameOrEmail: '',
-      Password: '',
+      usernameOrEmail: "",
+      Password: "",
     });
 
     const handleInputChange = (e) => {
@@ -355,10 +391,17 @@ export default function LoginSignup() {
     const handleSubmitLogin = async (e) => {
       e.preventDefault();
       try {
-        const response = await axios.post('http://localhost:9000/mirchmasala/login', userLogin);
+        const response = await axios.post(
+          "http://localhost:9000/mirchmasala/login",
+          userLogin
+        );
         // console.log(response);
         if (response.data.status) {
-          navigate('/');
+          sessionStorage.setItem(
+            "userData",
+            JSON.stringify(response.data.user)
+          );
+          navigate("/");
         } else {
           alert(response.data.message);
         }
@@ -366,15 +409,15 @@ export default function LoginSignup() {
         // console.error('Error during login:', error);
         if (error.response) {
           if (error.response.status === 404) {
-            alert('Not found in my Data Base, SignUp now...');
-            setActiveContainer('SignUp');
+            alert("Not found in my Data Base, SignUp now...");
+            setActiveContainer("SignUp");
           } else if (error.response.status === 401) {
-            alert('Invalid username or password');
+            alert("Invalid username or password");
           } else if (error.response.status === 500) {
-            alert('Internal server error');
+            alert("Internal server error");
           }
         } else {
-          alert('Network error, please try again later.');
+          alert("Network error, please try again later.");
         }
       }
     };
@@ -382,7 +425,7 @@ export default function LoginSignup() {
     return (
       <Container>
         <Logo>
-          <Link to={'/'}>
+          <Link to={"/"}>
             <img src={LogoImage} alt="Logo" />
           </Link>
         </Logo>
@@ -398,7 +441,7 @@ export default function LoginSignup() {
           />
           <PasswordView>
             <input
-              type={showPassword ? 'text' : 'password'}
+              type={showPassword ? "text" : "password"}
               placeholder="Password"
               name="Password"
               required
@@ -414,31 +457,34 @@ export default function LoginSignup() {
           <button type="submit">Login</button>
         </Form>
         <SmallText>
-          Don't have an account?<SignUp onClick={() => setActiveContainer('SignUp')}>SignUp</SignUp>
+          Don't have an account?
+          <SignUp onClick={() => setActiveContainer("SignUp")}>SignUp</SignUp>
         </SmallText>
-        <ForgotButton onClick={() => setActiveContainer('FORGOT PASSWORD')}>FORGOT PASSWORD</ForgotButton>
+        <ForgotButton onClick={() => setActiveContainer("FORGOT PASSWORD")}>
+          FORGOT PASSWORD
+        </ForgotButton>
       </Container>
     );
   };
 
   const renderContainer = () => {
     switch (activeContainer) {
-      case 'SignUp':
+      case "SignUp":
         return <SignupContainer />;
-      case 'Login':
+      case "Login":
         return <LoginContainer />;
-      case 'FORGOT PASSWORD':
+      case "FORGOT PASSWORD":
         return <ForgotContainer />;
-      case 'Re-Generate VerificationCode':
-        return <VerificationCode
-          countdown={countdown}
-          countdownActive={countdownActive}
-          emailVerification={emailVerification}
-        />;
-      case 'PasswordCreate':
-        return <PasswordGenerate
-          emailVerification={emailVerification}
-        />;
+      case "Re-Generate VerificationCode":
+        return (
+          <VerificationCode
+            countdown={countdown}
+            countdownActive={countdownActive}
+            emailVerification={emailVerification}
+          />
+        );
+      case "PasswordCreate":
+        return <PasswordGenerate emailVerification={emailVerification} />;
       default:
         return <LoginContainer />;
     }

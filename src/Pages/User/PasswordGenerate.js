@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import LogoImage from '../../assets/images/logo/logo.png';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 const Container = styled.div`
@@ -113,7 +113,6 @@ const SignUp = styled.span`
 
 
 export default function PasswordGenerate({ emailVerification }) {
-  const navigate = useNavigate();
   const [userPassword, setUserPassword] = useState({
     Password: '',
     CPassword: '',
@@ -173,7 +172,7 @@ export default function PasswordGenerate({ emailVerification }) {
         <button type="submit">Submit</button>
       </Form>
       <SmallText>
-        Alwarady have an account?<SignUp onClick={() => localStorage.setItem("setActiveContainer", "Login")}>Login</SignUp>
+        Alwarady have an account?<SignUp onClick={() => window.location.reload()}>Login</SignUp>
       </SmallText>
     </Container>
   )

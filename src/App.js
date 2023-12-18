@@ -7,7 +7,6 @@ import Header from './components/Header';
 import Modal from './components/Modal';
 import MainProduct from './components/Products/MainProduct';
 import CheckOut from './Pages/CheckOut';
-import SideBarMenu from './components/Header/SideBarMenu';
 import LoginSignup from './Pages/User/LoginSignup';
 import UserDashboard from './Pages/User/UserDashboard';
 
@@ -24,7 +23,6 @@ function App() {
         <Route path='/home' element={<Home />} />
         <Route path='/ProductDetail/:id' element={<ProductCard />} />{/* Show Single Product with simlear product */}
         <Route path='/Products/:category' element={<MainProduct />} />
-        <Route path='/sideBarMenu' element={<SideBarMenu />} />
         <Route path='/LoginSignup' element={<LoginSignup />} />
         <Route path='/UserDashboard' element={<UserDashboard/>} />
         <Route path='/CheckOut' element={<CheckOut />} />

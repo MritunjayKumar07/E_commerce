@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import LogoImage from '../../assets/images/logo/logo.png';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 const Container = styled.div`
@@ -152,14 +152,12 @@ const ForgotButton = styled.span`
 
 export default function VerificationCode({ countdown, countdownActive, emailVerification }) {
   const [isDisable, setIsDisable] = useState(false);
-  const navigate = useNavigate();
   const [userVerificationCode, setUserVerificationCode] = useState({
     code: Array(6).fill(''),
     email: emailVerification,
   });
 
   const handleInputChange = (index, value) => {
-    // console.log("Event object:", value);
     setUserVerificationCode((prevUser) => {
       const updatedCode = [...prevUser.code];
       updatedCode[index] = value;
@@ -234,7 +232,7 @@ export default function VerificationCode({ countdown, countdownActive, emailVeri
         <SubmitButton type="submit" disabled={isDisable}>Submit</SubmitButton>
       </VerificationForm>
       <SmallText>
-        Don't have an account?<SignUp onClick={() => navigate('/LoginSignup')}>Login</SignUp>
+        Don't have an account?<SignUp onClick={() => window.location.reload()}>Login</SignUp>
       </SmallText>
       {countdownActive ? (
         <SmallText>
