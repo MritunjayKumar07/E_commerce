@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import LogoImage from '../../assets/images/logo/logo.png';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
+import React, { useState } from "react";
+import styled from "styled-components";
+import LogoImage from "../../assets/images/logo/logo.png";
+import { Link } from "react-router-dom";
+import axios from "axios";
 
 const Container = styled.div`
   position: fixed;
@@ -12,14 +12,14 @@ const Container = styled.div`
   max-width: 400px;
   height: 650px;
   transform: translate(-50%, -50%);
-  background: #080B0E;
+  background: #080b0e;
   padding: 20px;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
   border-radius: 15px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 
   @media (max-width: 1055px) {
     width: 90%;
@@ -43,7 +43,7 @@ const Title = styled.h1`
   text-align: center;
   margin-top: 10px;
   margin-bottom: 5px;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   letter-spacing: 1px;
 `;
 
@@ -52,7 +52,7 @@ const SubTitle = styled.h3`
   font-weight: normal;
   text-align: center;
   margin-bottom: 15px;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   letter-spacing: 1px;
 
   @media (max-width: 480px) {
@@ -81,7 +81,7 @@ const OTPInput = styled.input`
   margin: 10px;
   border: 1px solid #aaa;
   border-radius: 8px;
-  color: #080B0E;
+  color: #080b0e;
   font-weight: 500;
   text-align: center;
   font-size: 18px;
@@ -127,7 +127,7 @@ const SignUp = styled.span`
   color: #a674d6;
   padding-left: 2px;
   font-size: 14px;
-  font-weight:600;
+  font-weight: 600;
   transition: color 0.3s;
   &:hover {
     color: #9c5cbc;
@@ -150,10 +150,17 @@ const ForgotButton = styled.span`
   }
 `;
 
-export default function VerificationCode({ countdown, countdownActive, emailVerification }) {
+export default function VerificationCode({
+  countdown,
+  countdownActive,
+  emailVerification,
+}) {
+  const [regenerateCountdown, setRegenerateCountdown] = useState();
+  const [regenerateCountdownActive, setRegenerateCountdownActive] =
+    useState(false);
   const [isDisable, setIsDisable] = useState(false);
   const [userVerificationCode, setUserVerificationCode] = useState({
-    code: Array(6).fill(''),
+    code: Array(6).fill(""),
     email: emailVerification,
   });
 
@@ -161,30 +168,52 @@ export default function VerificationCode({ countdown, countdownActive, emailVeri
     setUserVerificationCode((prevUser) => {
       const updatedCode = [...prevUser.code];
       updatedCode[index] = value;
-      return {
-        ...prevUser,
-        code: updatedCode,
-      };
+      return { ...prevUser, code: updatedCode };
     });
+  };
+
+  const ReGenerateVarificationCode = async () => {
+    setRegenerateCountdown(300);
+    setRegenerateCountdownActive(true);
+
+    const interval = setInterval(() => {
+      setRegenerateCountdown((prev) => prev - 1);
+    }, 1000);
+
+    setTimeout(() => {
+      setRegenerateCountdownActive(false);
+      clearInterval(interval);
+    }, 300000);
   };
 
   const handleSubmitVerificationCode = async (e) => {
     if (e) {
       e.preventDefault();
-      const fullVerificationCode = parseInt(userVerificationCode.code.join(''), 10);
+      const fullVerificationCode = parseInt(
+        userVerificationCode.code.join(""),
+        10
+      );
       // console.log(fullVerificationCode)
       setIsDisable(true);
+      // Determine the API endpoint based on the state
+      const changeSignupSystem = regenerateCountdownActive
+        ? "forgotPassword"
+        : "userVerificationCode";
+
       try {
-        const response = await axios.post('http://localhost:9000/mirchmasala/userVerificationCode', {
-          code: fullVerificationCode,
-          email: userVerificationCode.email,
-        });
+        const response = await axios.post(
+          `http://localhost:9000/mirchmasala/${changeSignupSystem}`,
+          {
+            code: fullVerificationCode,
+            email: userVerificationCode.email,
+          }
+        );
         if (response.data.status) {
-          localStorage.setItem('setActiveContainer', 'PasswordCreate');
+          localStorage.setItem("setActiveContainer", "PasswordCreate");
         }
       } catch (error) {
         setIsDisable(false);
-        alert(error.response?.data?.message || 'Error during verification');
+        alert(error.response?.data?.message || "Error during verification");
       }
     }
     // console.log(e)
@@ -206,7 +235,7 @@ export default function VerificationCode({ countdown, countdownActive, emailVeri
   return (
     <Container>
       <Logo>
-        <Link to={'/'}>
+        <Link to={"/"}>
           <img src={LogoImage} alt="Logo" />
         </Link>
       </Logo>
@@ -221,7 +250,7 @@ export default function VerificationCode({ countdown, countdownActive, emailVeri
               name={`code${index}`}
               maxLength={1}
               required
-              value={userVerificationCode.code[index] || ''}
+              value={userVerificationCode.code[index] || ""}
               onChange={(e) => {
                 handleInputChange(index, e.target.value);
                 focusNextInput(index);
@@ -229,17 +258,23 @@ export default function VerificationCode({ countdown, countdownActive, emailVeri
             />
           ))}
         </section>
-        <SubmitButton type="submit" disabled={isDisable}>Submit</SubmitButton>
+        <SubmitButton type="submit" disabled={isDisable}>
+          Submit
+        </SubmitButton>
       </VerificationForm>
       <SmallText>
-        Don't have an account?<SignUp onClick={() => window.location.reload()}>Login</SignUp>
+        Don't have an account?
+        <SignUp onClick={() => window.location.reload()}>Login</SignUp>
       </SmallText>
-      {countdownActive ? (
+      {countdownActive || regenerateCountdownActive ? (
         <SmallText>
-          Countdown: {Math.floor(countdown / 60)} : {countdown % 60}
+          Countdown: {Math.floor((regenerateCountdown || countdown) / 60)} :{" "}
+          {(regenerateCountdown || countdown) % 60}
         </SmallText>
       ) : (
-        <ForgotButton>Re-Generate Code</ForgotButton>
+        <ForgotButton onClick={ReGenerateVarificationCode}>
+          Re-Generate Code
+        </ForgotButton>
       )}
     </Container>
   );

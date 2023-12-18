@@ -417,7 +417,7 @@ export default function LoginSignup() {
             alert("Internal server error");
           }
         } else {
-          alert("Network error, please try again later.");
+          alert(error.message || 'Network error, please try again later.');
         }
       }
     };

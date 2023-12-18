@@ -67,7 +67,7 @@ export default function Header() {
         <div className="header-main">
           <div className="container">
             <Link to="/" className="header-logo">
-              <img src={logo} alt="Anon's logo" width="160" />
+              <img src={logo} alt="Anon's logo" width="86" />
             </Link>
 
             <div className="header-search-container">
