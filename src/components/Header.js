@@ -5,7 +5,6 @@ import {
   FaUser,
   FaHeart,
   FaShoppingBag,
-  FaAlignJustify,
   FaHome,
   FaGripVertical,
 } from "react-icons/fa";

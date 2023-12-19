@@ -9,6 +9,9 @@ import MainProduct from './components/Products/MainProduct';
 import CheckOut from './Pages/CheckOut';
 import LoginSignup from './Pages/User/LoginSignup';
 import UserDashboard from './Pages/User/UserDashboard';
+import Search from './components/Search';
+
+
 
 function App() {
   const location = useLocation();
@@ -26,6 +29,7 @@ function App() {
         <Route path='/LoginSignup' element={<LoginSignup />} />
         <Route path='/UserDashboard' element={<UserDashboard/>} />
         <Route path='/CheckOut' element={<CheckOut />} />
+        <Route path='/Search' element={<Search/>} />
         <Route path='*' element={<Page404 />} />
       </Routes>
       {!isLoginSignupRoute && <Footer />}
