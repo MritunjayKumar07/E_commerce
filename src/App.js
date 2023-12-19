@@ -9,7 +9,7 @@ import MainProduct from './components/Products/MainProduct';
 import CheckOut from './Pages/CheckOut';
 import LoginSignup from './Pages/User/LoginSignup';
 import UserDashboard from './Pages/User/UserDashboard';
-import Search from './components/Search';
+import Search from './components/search/Search';
 
 
 

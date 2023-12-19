@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { MirchMasalaProduct } from '../../server/Api_MirchMasalaProduct';
+import React, { useState } from "react";
+import { MirchMasalaProduct } from "../../server/Api_MirchMasalaProduct";
 
 const ProductList = ({ products }) => {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
   const handleSearchChange = (e) => {
@@ -15,7 +15,11 @@ const ProductList = ({ products }) => {
         product.title.toLowerCase().includes(query) ||
         product.spacel.toLowerCase().includes(query) ||
         product.category.some((cat) => cat.toLowerCase().includes(query)) ||
-        product.keyWords.some((keyword) => keyword.toLowerCase().includes(query))
+        product.keyWords.some((keyword) =>
+          keyword.toLowerCase().includes(query)
+        ) ||
+        product.originalPrice.toString().includes(query) ||
+        product.discountedPrice.toString().includes(query)
       );
     });
 
@@ -26,7 +30,7 @@ const ProductList = ({ products }) => {
     <div>
       <input
         type="text"
-        placeholder="Search by name, title, spacel, category, keyWords..."
+        placeholder="Search it..."
         value={searchQuery}
         onChange={handleSearchChange}
       />
@@ -35,6 +39,8 @@ const ProductList = ({ products }) => {
           <li key={result.id}>
             <h3>{result.name}</h3>
             <p>{result.title}</p>
+            <p>Original Price: ${result.originalPrice}</p>
+            <p>Discounted Price: ${result.discountedPrice}</p>
             {/* Add other fields you want to display */}
           </li>
         ))}

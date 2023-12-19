@@ -4,7 +4,7 @@ import pizzaImage from '../assets/images/products/pizza.svg';
 export const MirchMasalaProduct = [
     {
         id: 1,
-        ProductId:'123',
+        ProductId:'101',
         name: 'Farmhouse Pizza',
         title: 'Freshness in Every Bite!',
         description: 'Delicious Farmhouse Pizza with a perfect blend of veggies. Available in 8 inch for Rs 159 and 10 inch for Rs 199.',
@@ -21,7 +21,7 @@ export const MirchMasalaProduct = [
     },
     {
         id: 2,
-        ProductId:'456',
+        ProductId:'102',
         name: 'Farmhouse Pizza',
         title: 'Family Size Delight!',
         description: 'Enjoy our Family Size Farmhouse Pizza, loaded with goodness. 10 inch for Rs 199 - Limited time offer!',
@@ -38,7 +38,7 @@ export const MirchMasalaProduct = [
     },
     {
         id: 3,
-        ProductId:'789',
+        ProductId:'103',
         name: 'Mushroom Pizza',
         title: 'Savor the Earthy Flavors!',
         description: 'Indulge in the earthy goodness of Mushroom Pizza. 8 inch for Rs 169 - Irresistible taste!',
@@ -55,7 +55,7 @@ export const MirchMasalaProduct = [
     },
     {
         id: 4,
-        ProductId:'101112',
+        ProductId:'104',
         name: 'Mushroom Pizza',
         title: 'Deliciously Earthy!',
         description: 'Savor the earthy goodness with our Mushroom Pizza. 10 inch for Rs 209 - A delight for mushroom lovers!',
@@ -72,7 +72,7 @@ export const MirchMasalaProduct = [
     },
     {
         id: 5,
-        ProductId:'131415',
+        ProductId:'105',
         name: 'Peri Peri Paneer Pizza',
         title: 'Spice it Up with Paneer!',
         description: 'Indulge in the spicy delight of Peri Peri Paneer Pizza. 8 inch for Rs 169 and 10 inch for Rs 219.',
@@ -89,7 +89,7 @@ export const MirchMasalaProduct = [
     },
     {
         id: 6,
-        ProductId:'161718',
+        ProductId:'106',
         name: 'Peri Peri Paneer Pizza',
         title: 'Bold Flavors for Pizza Lovers!',
         description: 'Try our bold and flavorful Peri Peri Paneer Pizza. 10 inch for Rs 219 - Limited stock!',
@@ -106,7 +106,7 @@ export const MirchMasalaProduct = [
     },
     {
         id: 7,
-        ProductId:'192021',
+        ProductId:'107',
         name: 'Paneer Tikka Pizza',
         title: 'Paneer Perfection!',
         description: 'Indulge in the perfection of Paneer Tikka Pizza. 8 inch for Rs 179 and 10 inch for Rs 229 - A Paneer lover’s delight!',
@@ -123,7 +123,7 @@ export const MirchMasalaProduct = [
     },
     {
         id: 8,
-        ProductId:'222324',
+        ProductId:'108',
         name: 'Paneer Tikka Pizza',
         title: 'Spicy & Flavorful!',
         description: 'Experience the spice and flavor of our Paneer Tikka Pizza. 10 inch for Rs 229 - Order now!',
@@ -140,7 +140,7 @@ export const MirchMasalaProduct = [
     },
     {
         id: 9,
-        ProductId:'252627',
+        ProductId:'109',
         name: 'Paneer Makhni Pizza',
         title: 'Buttery Goodness!',
         description: 'Savor the buttery goodness of Paneer Makhni Pizza. 8 inch for Rs 179 and 10 inch for Rs 229 - A rich and indulgent treat!',
@@ -157,7 +157,7 @@ export const MirchMasalaProduct = [
     },
     {
         id: 10,
-        ProductId:'282930',
+        ProductId:'110',
         name: 'Paneer Makhni Pizza',
         title: 'Creamy & Irresistible!',
         description: 'Indulge in the creamy and irresistible flavor of Paneer Makhni Pizza. 10 inch for Rs 229 - Limited stock!',
@@ -174,7 +174,7 @@ export const MirchMasalaProduct = [
     },
     {
         id: 11,
-        ProductId:'313233',
+        ProductId:'111',
         name: 'Schezwan Paneer Pizza',
         title: 'Spice Up Your Taste Buds!',
         description: 'Spice up your taste buds with our Schezwan Paneer Pizza. 8 inch for Rs 169 and 10 inch for Rs 219 - A fiery delight!',
@@ -191,7 +191,7 @@ export const MirchMasalaProduct = [
     },
     {
         id: 12,
-        ProductId:'343536',
+        ProductId:'112',
         name: 'Schezwan Paneer Pizza',
         title: 'Fiery and Flavorful!',
         description: 'Experience the fiery and flavorful Schezwan Paneer Pizza. 10 inch for Rs 219 - Limited time offer!',
@@ -208,7 +208,7 @@ export const MirchMasalaProduct = [
     },
     {
         id: 13,
-        ProductId:'373839',
+        ProductId:'113',
         name: 'Crispy Veggie Burger',
         title: 'Crunchy & Delicious!',
         description: 'Satisfy your cravings with our Crispy Veggie Burger. Only Rs 59 - A perfect snack!',
@@ -225,7 +225,7 @@ export const MirchMasalaProduct = [
     },
     {
         id: 14,
-        ProductId:'404142',
+        ProductId:'114',
         name: 'Crispy Veggie Cheese Burger',
         title: 'Cheese Lover`s Delight!',
         description: 'Savor the cheesy goodness with our Crispy Veggie Cheese Burger. Only Rs 79 - A treat for cheese enthusiasts!',
@@ -242,7 +242,7 @@ export const MirchMasalaProduct = [
     },
     {
         id: 15,
-        ProductId:'434445',
+        ProductId:'115',
         name: 'Paneer Makhani Burger',
         title: 'A Symphony of Flavors!',
         description: 'Indulge in the symphony of flavors with our Paneer Makhani Burger. Only Rs 99 - A burger that delights!',
@@ -259,7 +259,7 @@ export const MirchMasalaProduct = [
     },
     {
         id: 16,
-        ProductId:'464748',
+        ProductId:'116',
         name: 'Party Special Combo',
         title: 'Celebrate with Veg Delights!',
         description: 'Make your celebration memorable with our Party Special Combo - Farmhouse Pizza, Crispy Veggie Burger, and more. Only Rs 259!',
@@ -276,7 +276,7 @@ export const MirchMasalaProduct = [
     },
     {
         id: 17,
-        ProductId:'495051',
+        ProductId:'117',
         name: 'Spicy Veg Combo',
         title: 'Heat up your Taste Buds!',
         description: 'Enjoy the heat with our Spicy Veg Combo - Farmhouse Pizza, Crispy Veggie Burger, and more. Only Rs 299!',
@@ -293,7 +293,7 @@ export const MirchMasalaProduct = [
     },
     {
         id: 18,
-        ProductId:'525354',
+        ProductId:'118',
         name: 'Makhni Combo',
         title: 'Indulge in Makhni Magic!',
         description: 'Experience the magic of Makhni with our Makhni Combo - Paneer Makhni Pizza, Makhni Burger, and more. Only Rs 259!',
