@@ -51,8 +51,14 @@ const ContinueWithGoogle = styled.button`
   }
 `;
 
-export default function WithGoogle() {
+export default function WithGoogle({ userData, userDataAuthenticated }) {
   const { user, loginWithRedirect, isAuthenticated } = useAuth0();
+  if (user) {
+    userData(user);
+  }
+  if (isAuthenticated) {
+    userDataAuthenticated(isAuthenticated);
+  }
   //https://res.cloudinary.com/dmcgmz9do/image/upload/v1703264444/logo_k3m0yo.png
   // Replace the image tag with the base64-encoded SVG code
   const svgIcon =

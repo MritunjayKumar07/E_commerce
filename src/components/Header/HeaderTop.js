@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 import {
   FaFacebookF,
   FaTwitter,
@@ -8,6 +9,7 @@ import {
 import { Link } from "react-router-dom";
 
 export default function HeaderTop() {
+  const { user, isAuthenticated, logout } = useAuth0();
   const [isUserName, setIsUserName] = useState("");
 
   const handleLogout = () => {
@@ -64,11 +66,14 @@ export default function HeaderTop() {
             <option value="rupee">Login/SignUp</option>
           </select> */}
           {/* <h5>Login / SignUp</h5> */}
-          {isUserName ? (
-            <select name="currency" onChange={handleLogout}>
+          {isUserName || isAuthenticated ? (
+            <select
+              name="currency"
+              onChange={isAuthenticated ? (e) => logout() : handleLogout}
+            >
               <option value="Login/Signup">
                 <h5 style={{ color: "#000", textTransform: "capitalize" }}>
-                  Hello {isUserName}
+                  Hello {isUserName || user.name}
                 </h5>
               </option>
               <option value="Logout">

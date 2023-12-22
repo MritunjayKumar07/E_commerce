@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useAuth0 } from "@auth0/auth0-react";
 import LogoImage from "../../assets/images/logo/logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -167,6 +168,7 @@ const ForgotButton = styled.span`
 
 
 export default function LoginSignup() {
+  const { user, isAuthenticated } = useAuth0();
   const [countdown, setCountdown] = useState(300); // 7 minutes in seconds
   const [countdownActive, setCountdownActive] = useState(false);
   const [activeContainer, setActiveContainer] = useState("Login");
@@ -204,6 +206,9 @@ export default function LoginSignup() {
   const ForgotContainer = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [userForgot, setUserForgot] = useState({ email: "" });
+    // const [byGoogle, setByGoogle] = useState();
+
+    // console.log(byGoogle);
 
     const handleInputChange = (e) => {
       const { name, value } = e.target;
@@ -269,7 +274,11 @@ export default function LoginSignup() {
           Alwarady have an account?
           <SignUp onClick={() => setActiveContainer("Login")}>Login</SignUp>
         </SmallText>
-        <WithGoogle/>
+        <WithGoogle userData={(data)=>{
+          console.log(data)
+        }} dataAuthenticated={(data)=>{
+          console.log(data)
+        }}/>
       </Container>
     );
   };
@@ -277,12 +286,15 @@ export default function LoginSignup() {
   const SignupContainer = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [isDisable, setIsDisable] = useState(false);
+    // const [byGoogle, setByGoogle] = useState();
     const [userSignup, setUserSignup] = useState({
       firstName: "",
       lastName: "",
       email: "",
       contactNumber: "",
     });
+
+    // console.log(byGoogle);
 
     const handleInputChange = (e) => {
       const { name, value } = e.target;
@@ -377,18 +389,24 @@ export default function LoginSignup() {
         <ForgotButton onClick={() => setActiveContainer("FORGOT PASSWORD")}>
           FORGOT PASSWORD
         </ForgotButton>
-        <WithGoogle/>
+        <WithGoogle userData={(data)=>{
+          console.log(data)
+        }} userDataAuthenticated={(data)=>{
+          console.log(data)
+        }}/>
       </Container>
     );
   };
 
   const LoginContainer = () => {
     const [showPassword, setShowPassword] = useState(false);
+    // const [byGoogle, setByGoogle] = useState();
     const [userLogin, setUserLogin] = useState({
       usernameOrEmail: "",
       Password: "",
     });
-
+    
+    // console.log(byGoogle);
     const handleInputChange = (e) => {
       const { name, value } = e.target;
       setUserLogin((prevUser) => ({ ...prevUser, [name]: value }));
@@ -469,7 +487,11 @@ export default function LoginSignup() {
         <ForgotButton onClick={() => setActiveContainer("FORGOT PASSWORD")}>
           FORGOT PASSWORD
         </ForgotButton>
-        <WithGoogle/>
+        <WithGoogle userData={(data)=>{
+          console.log(data)
+        }} userDataAuthenticated={(data)=>{
+          console.log(data)
+        }}/>
       </Container>
     );
   };
