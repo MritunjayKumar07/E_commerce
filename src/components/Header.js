@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import logo from "../assets/images/logo/logo.png";
 import {
   FaSearch,
+  FaTimes,
   FaUser,
   FaHeart,
   FaShoppingBag,
@@ -15,7 +16,7 @@ import { MirchMasalaProduct } from "../server/Api_MirchMasalaProduct";
 import { Link, useNavigate } from "react-router-dom";
 import DilogBox from "./DilogBox";
 
-const Search = ({ products }) => {
+const Search = ({ products, closeDialog }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
@@ -50,6 +51,9 @@ const Search = ({ products }) => {
         className="search-field"
         value={searchQuery}
         onChange={handleSearchChange}
+        style={{
+          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.5)",
+        }}
       />
       {isOpen ? (
         <ul
@@ -68,35 +72,88 @@ const Search = ({ products }) => {
             padding: 10,
           }}
         >
+          <div
+            style={{
+              background: "#000",
+              color: "#fff",
+              display: "flex",
+              borderRadius: 15,
+              paddingRight: 10,
+              alignItems: "center",
+              boxShadow: "0 2px 4px rgba(0, 0, 0, 0.5)",
+            }}
+          >
+            <input
+              type="text"
+              placeholder="Search it..."
+              className="search-field"
+              value={searchQuery}
+              onChange={handleSearchChange}
+              style={{ background: "#000", color: "#fff", border: "none", }}
+            />{" "}
+            <FaSearch
+              style={{
+                fontSize: 22,
+                cursor: "pointer",
+                marginRight: "10px",
+                marginLeft: "10px",
+              }}
+            />
+            <FaTimes
+              style={{ fontSize: 22, cursor: "pointer" }}
+              onClick={() => {
+                setIsOpen(false);
+                setSearchQuery("");
+                closeDialog(); // Call closeDialog function passed as prop
+              }}
+            />
+          </div>
+
           {searchResults.map((result) => (
             <li key={result.id}>
-              {/* <h3>{result.name}</h3>
-              <p>{result.title}</p>
-              <p>Original Price: ${result.originalPrice}</p>
-              <p>Discounted Price: ${result.discountedPrice}</p> */}
               <Link
-                to={`/ProductDetail/${result.id} `}
+                onClick={() => {
+                  setIsOpen(false);
+                  closeDialog();
+                }}
+                to={`/ProductDetail/${result.id}`}
                 key={result.id}
                 className="showcase"
+                style={{
+                  margin: "10px",
+                  padding: "10px",
+                  border: "1px solid #ddd",
+                  borderRadius: "8px",
+                  display: "flex",
+                  alignItems: "center",
+                  textDecoration: "none",
+                  color: "#000",
+                }}
               >
-                <a href="#">
-                  <img
-                    src={logo}
-                    alt={result.title}
-                    width="70"
-                    height="90"
-                  />
-                </a>
+                <img
+                  src={logo}
+                  alt={result.title}
+                  width="95"
+                  height="90"
+                  style={{
+                    marginRight: "20px",
+                    borderRadius: "4px",
+                  }}
+                />
                 <div>
                   <a href="#">
-                    <h4>{result.name}</h4>
+                    <h4 style={{ marginBottom: "5px", color: "#000" }}>
+                      {result.name}
+                    </h4>
                   </a>
-                  <a href="#">
-                    {result.title}
-                  </a>
-                  <div>
-                    <p>{result.discountedPrice}</p>
-                    <del>{result.originalPrice}</del>
+                  <p href="#">{result.title}</p>
+                  <div style={{ display: "flex", gap: "10px" }}>
+                    <p style={{ fontWeight: "bold", color: "#4caf50" }}>
+                      {result.discountedPrice}
+                    </p>
+                    <del style={{ color: "#757575" }}>
+                      {result.originalPrice}
+                    </del>
                   </div>
                 </div>
               </Link>
@@ -162,7 +219,7 @@ export default function Header() {
             <Link to="/" className="header-logo">
               <img src={logo} alt="Anon's logo" width="86" />
             </Link>
-            <Search products={MirchMasalaProduct} />
+            <Search products={MirchMasalaProduct} closeDialog={closeDialog} />
             <div className="header-user-actions">
               <button
                 className="action-btn"
