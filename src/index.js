@@ -29,4 +29,5 @@ root.render(
 reportWebVitals();
 
 
-// Auth0:-https://www.youtube.com/watch?v=oA-K3DfG1QY&t=281s
+// Auth0 3rd party:-https://www.youtube.com/watch?v=oA-K3DfG1QY&t=281s
+// Auth0:- https://www.youtube.com/watch?v=pdd04JzJrDw
