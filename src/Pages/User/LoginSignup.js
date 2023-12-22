@@ -7,6 +7,7 @@ import VerificationCode from "./VerificationCode";
 import PasswordGenerate from "./PasswordGenerate";
 import { FaEye, FaRegEyeSlash } from "react-icons/fa6";
 import Loading from "../../Loading";
+import WithGoogle from "./WithGoogle";
 
 const Container = styled.div`
   position: fixed;
@@ -14,7 +15,8 @@ const Container = styled.div`
   left: 50%;
   width: 40%;
   max-width: 400px;
-  height: 670px;
+  height: auto;
+  ${'' /* height: 670px; */}
   transform: translate(-50%, -50%);
   background: #080b0e;
   padding: 20px;
@@ -162,6 +164,8 @@ const ForgotButton = styled.span`
   }
 `;
 
+
+
 export default function LoginSignup() {
   const [countdown, setCountdown] = useState(300); // 7 minutes in seconds
   const [countdownActive, setCountdownActive] = useState(false);
@@ -265,6 +269,7 @@ export default function LoginSignup() {
           Alwarady have an account?
           <SignUp onClick={() => setActiveContainer("Login")}>Login</SignUp>
         </SmallText>
+        <WithGoogle/>
       </Container>
     );
   };
@@ -372,6 +377,7 @@ export default function LoginSignup() {
         <ForgotButton onClick={() => setActiveContainer("FORGOT PASSWORD")}>
           FORGOT PASSWORD
         </ForgotButton>
+        <WithGoogle/>
       </Container>
     );
   };
@@ -417,7 +423,7 @@ export default function LoginSignup() {
             alert("Internal server error");
           }
         } else {
-          alert(error.message || 'Network error, please try again later.');
+          alert(error.message || "Network error, please try again later.");
         }
       }
     };
@@ -463,6 +469,7 @@ export default function LoginSignup() {
         <ForgotButton onClick={() => setActiveContainer("FORGOT PASSWORD")}>
           FORGOT PASSWORD
         </ForgotButton>
+        <WithGoogle/>
       </Container>
     );
   };

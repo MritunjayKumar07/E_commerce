@@ -15,6 +15,100 @@ import { MirchMasalaProduct } from "../server/Api_MirchMasalaProduct";
 import { Link, useNavigate } from "react-router-dom";
 import DilogBox from "./DilogBox";
 
+const Search = ({ products }) => {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleSearchChange = (e) => {
+    const query = e.target.value.toLowerCase();
+    setSearchQuery(query);
+    setIsOpen(query ? true : false);
+
+    const results = products.filter((product) => {
+      return (
+        product.name.toLowerCase().includes(query) ||
+        product.title.toLowerCase().includes(query) ||
+        product.spacel.toLowerCase().includes(query) ||
+        product.category.some((cat) => cat.toLowerCase().includes(query)) ||
+        product.keyWords.some((keyword) =>
+          keyword.toLowerCase().includes(query)
+        ) ||
+        product.originalPrice.toString().includes(query) ||
+        product.discountedPrice.toString().includes(query)
+      );
+    });
+
+    setSearchResults(results);
+  };
+
+  return (
+    <div className="header-search-container">
+      <input
+        type="text"
+        placeholder="Search it..."
+        className="search-field"
+        value={searchQuery}
+        onChange={handleSearchChange}
+      />
+      {isOpen ? (
+        <ul
+          className="search_dilog"
+          style={{
+            zIndex: 9999,
+            position: "absolute",
+            marginTop: 15,
+            marginBottom: 15,
+            background: "#fff",
+            width: "100%",
+            borderRadius: 15,
+            borderWidth: 2,
+            borderStyle: "solid",
+            borderColor: "#000",
+            padding: 10,
+          }}
+        >
+          {searchResults.map((result) => (
+            <li key={result.id}>
+              {/* <h3>{result.name}</h3>
+              <p>{result.title}</p>
+              <p>Original Price: ${result.originalPrice}</p>
+              <p>Discounted Price: ${result.discountedPrice}</p> */}
+              <Link
+                to={`/ProductDetail/${result.id} `}
+                key={result.id}
+                className="showcase"
+              >
+                <a href="#">
+                  <img
+                    src={logo}
+                    alt={result.title}
+                    width="70"
+                    height="90"
+                  />
+                </a>
+                <div>
+                  <a href="#">
+                    <h4>{result.name}</h4>
+                  </a>
+                  <a href="#">
+                    {result.title}
+                  </a>
+                  <div>
+                    <p>{result.discountedPrice}</p>
+                    <del>{result.originalPrice}</del>
+                  </div>
+                </div>
+              </Link>
+              {/* Add other fields you want to display */}
+            </li>
+          ))}
+        </ul>
+      ) : null}
+    </div>
+  );
+};
+
 export default function Header() {
   const [isDialogOpen, setDialogOpen] = useState(false);
   const [isDialogName, setisDialogName] = useState("");
@@ -68,19 +162,7 @@ export default function Header() {
             <Link to="/" className="header-logo">
               <img src={logo} alt="Anon's logo" width="86" />
             </Link>
-
-            <div className="header-search-container">
-              <input
-                type="search"
-                name="search"
-                className="search-field"
-                placeholder="Enter your product name..."
-              />
-              <button className="search-btn">
-                <FaSearch />
-              </button>
-            </div>
-
+            <Search products={MirchMasalaProduct} />
             <div className="header-user-actions">
               <button
                 className="action-btn"
