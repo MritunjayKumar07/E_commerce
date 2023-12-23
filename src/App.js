@@ -10,6 +10,7 @@ import CheckOut from './Pages/CheckOut';
 import LoginSignup from './Pages/User/LoginSignup';
 import UserDashboard from './Pages/User/UserDashboard';
 import Search from './components/search/Search';
+import UserLocation from './Pages/User/UserLocation';
 
 
 
@@ -30,6 +31,7 @@ function App() {
         <Route path='/UserDashboard' element={<UserDashboard/>} />
         <Route path='/CheckOut' element={<CheckOut />} />
         <Route path='/Search' element={<Search/>} />
+        <Route path='/UserLocation' element={<UserLocation/>} />
         <Route path='*' element={<Page404 />} />
       </Routes>
       {!isLoginSignupRoute && <Footer />}
