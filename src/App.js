@@ -6,11 +6,10 @@ import Footer from './components/Footer';
 import Header from './components/Header';
 import Modal from './components/Modal';
 import MainProduct from './components/Products/MainProduct';
-import CheckOut from './Pages/CheckOut';
+import CheckOut from './Pages/CheckOut/CheckOut';
 import LoginSignup from './Pages/User/LoginSignup';
 import UserDashboard from './Pages/User/UserDashboard';
 import Search from './components/search/Search';
-import UserLocation from './Pages/User/UserLocation';
 
 
 
@@ -31,7 +30,6 @@ function App() {
         <Route path='/UserDashboard' element={<UserDashboard/>} />
         <Route path='/CheckOut' element={<CheckOut />} />
         <Route path='/Search' element={<Search/>} />
-        <Route path='/UserLocation' element={<UserLocation/>} />
         <Route path='*' element={<Page404 />} />
       </Routes>
       {!isLoginSignupRoute && <Footer />}

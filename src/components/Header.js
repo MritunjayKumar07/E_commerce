@@ -343,9 +343,9 @@ export default function Header() {
           </button>
           <button
             className="action-btn"
-            onClick={() => navigate("/sideBarMenu")}
+            onClick={() => navigate("/UserDashboard")}
           >
-            <FaGripVertical />
+            <FaUser />
             <span className="count">0</span>
           </button>
         </div>

@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import NotItem from '../assets/images/empty_shoping_Bag.png';
-import { MirchMasalaProduct } from '../server/Api_MirchMasalaProduct';
-import { FaMinus, FaPlus, FaHeart } from 'react-icons/fa';
-import { MdRemoveShoppingCart } from 'react-icons/md';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import NotItem from "../assets/images/empty_shoping_Bag.png";
+import { MirchMasalaProduct } from "../server/Api_MirchMasalaProduct";
+import { FaMinus, FaPlus, FaHeart } from "react-icons/fa";
+import { FaCartShopping } from "react-icons/fa6";
+import { MdRemoveShoppingCart } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 const DialogContainer = styled.div`
   position: fixed;
@@ -20,6 +21,7 @@ const DialogContainer = styled.div`
   animation: fadeIn 0.3s ease-out forwards;
   border-radius: 10px;
   overflow: scroll;
+  box-sizing: content-box;
   scrollbar-width: thin;
   scrollbar-color: hsl(0, 0%, 80%) transparent;
 
@@ -57,7 +59,6 @@ const DialogContainer = styled.div`
   @media (max-width: 545px) {
     width: 95%;
   }
-
 `;
 
 const Overlay = styled.div`
@@ -70,13 +71,50 @@ const Overlay = styled.div`
   z-index: 999;
 `;
 
+const CheckoutButton = styled.button`
+  align-items: center;
+  background-color: #720e9e;
+  border-radius: 10px 10px 10px 10px;
+  color: #fff;
+  display: flex;
+  float: right;
+  justify-content: center;
+  padding-block: 0.55em;
+  padding-inline: 1em;
+  transition: 0.3s;
+
+  :active,
+  :focus {
+    outline: none;
+    background-color: #1d1160;
+  }
+  &:hover {
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+    background-color: #1d1160;
+  }
+
+  .svg {
+    float: left;
+    fill: white;
+    vertical-align: middle;
+    margin-right: 1rem;
+    font-size: 32px;
+    margin: 0.3rem 0.7rem 0.3rem 0rem;
+    ${"" /* top right bottom left*/}
+  }
+`;
+
 const Box = styled.div`
   display: flex;
-  margin-bottom: 20px;
-  margin-top: 20px;
-  padding: 10px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  padding-block: 0.5em;
+  padding-inline: 0.2em;
   border: 1px solid #ddd;
   border-radius: 8px 8px 8px 8px;
+  border-bottom: 4px solid #1d1160;
+
   @media (max-width: 545px) {
     padding: 2px;
   }
@@ -90,10 +128,10 @@ const ProductImage = styled.div`
   }
   @media (max-width: 545px) {
     img {
-    border-radius: 8px;
-    margin-right: 3px;
-    max-width: 50px;
-  }
+      border-radius: 8px;
+      margin-right: 3px;
+      max-width: 50px;
+    }
   }
 `;
 
@@ -103,7 +141,7 @@ const ProductDetails = styled.div`
   padding-right: 20px;
 
   b {
-    font-size: 1.2em;
+    font-size: auto;
     display: block;
     margin-bottom: 5px;
   }
@@ -115,26 +153,25 @@ const ProductDetails = styled.div`
 
   @media (max-width: 545px) {
     padding-left: 10px;
-    width:auto;
+    width: auto;
     b {
-    font-size: 12px;
+      font-size: auto;
     }
     p {
-    font-size: 12px;
-    margin-bottom: 10px;
+      font-size: auto;
+      margin-bottom: 10px;
     }
   }
 
   @media (max-width: 315px) {
     b {
-    font-size: 10px;
+      font-size: 10px;
     }
     p {
-    font-size: 8px;
-    margin-bottom: 2px;
+      font-size: 8px;
+      margin-bottom: 2px;
     }
   }
-
 `;
 
 const ProductPrice = styled.div`
@@ -143,14 +180,14 @@ const ProductPrice = styled.div`
   align-items: center;
 
   p {
-    font-size: 1.2em;
+    font-size: auto;
     color: #333;
     margin-right: 10px;
     font-weight: 700;
   }
 
   del {
-    font-size: 1em;
+    font-size: auto;
     color: red;
     text-decoration: line-through;
     font-weight: 700;
@@ -158,24 +195,20 @@ const ProductPrice = styled.div`
   }
   @media (max-width: 545px) {
     p {
-    font-size: 12px;
-    margin-right: 4px;
+      margin-right: 4px;
+    }
+    del {
+      padding: 4px;
+    }
   }
-  del {
-    font-size: 12px;
-    padding: 4px;
-  }
-  }
-  
+
   @media (max-width: 315px) {
     p {
-    font-size: 10px;
-    margin-right: 2px;
-  }
-  del {
-    font-size: 10px;
-    padding: 2px;
-  }
+      margin-right: 2px;
+    }
+    del {
+      padding: 2px;
+    }
   }
 `;
 
@@ -186,34 +219,30 @@ const ProductAmount = styled.div`
 
   p {
     margin-bottom: 10px;
-    font-size: 1.2em;
-  }
-  @media (max-width: 545px) {
-    p {
-    font-size: 12px;
-  }
   }
 `;
 
 const ChangeAmount = styled.div`
   display: flex;
   align-items: center;
-  
 
   svg {
     cursor: pointer;
     font-size: 1.5em;
     margin: 0 5px;
-    color: #333;
+    color: #1d1160;
 
     &:hover {
-      color: #007bff;
+      color: #fff;
+      background: #720e9e;
+      padding: 5px;
+      border-radius: 15px;
     }
   }
   @media (max-width: 545px) {
     svg {
-    font-size: 12px;
-  }
+      font-size: 12px;
+    }
   }
 `;
 
@@ -223,38 +252,40 @@ const DialogBox = ({ isOpen, children, closeDialog, dilogName }) => {
   const navigate = useNavigate();
 
   const updateCart = (ProductId, operation) => {
-    let storedCartItems = localStorage.getItem('MirchMasalaCart');
+    let storedCartItems = localStorage.getItem("MirchMasalaCart");
     if (storedCartItems) {
       let cartItems = JSON.parse(storedCartItems);
-      const existingItemIndex = cartItems.findIndex(item => item.ProductId === ProductId);
+      const existingItemIndex = cartItems.findIndex(
+        (item) => item.ProductId === ProductId
+      );
 
       if (existingItemIndex !== -1) {
         const existingItem = cartItems[existingItemIndex];
 
-        if (operation === 'Sub' && existingItem.Amount > 1) {
+        if (operation === "Sub" && existingItem.Amount > 1) {
           existingItem.Amount -= 1;
-        } else if (operation === 'Add') {
+        } else if (operation === "Add") {
           existingItem.Amount += 1;
-        } else if (operation === 'Remove') {
+        } else if (operation === "Remove") {
           cartItems.splice(existingItemIndex, 1);
         }
-      } else if (operation === 'Add') {
+      } else if (operation === "Add") {
         cartItems.push({ ProductId, Amount: 1 });
       }
 
-      localStorage.setItem('MirchMasalaCart', JSON.stringify(cartItems));
+      localStorage.setItem("MirchMasalaCart", JSON.stringify(cartItems));
       fetchCartCount();
     }
   };
 
   const fetchCartCount = () => {
-    const storedCartItems = localStorage.getItem('MirchMasalaCart');
+    const storedCartItems = localStorage.getItem("MirchMasalaCart");
     const parsedCartItems = storedCartItems ? JSON.parse(storedCartItems) : [];
     setCartItems(parsedCartItems);
   };
 
   const fetchLikeItems = () => {
-    const storedLikeItems = localStorage.getItem('MirchMasalaLikeCart');
+    const storedLikeItems = localStorage.getItem("MirchMasalaLikeCart");
     let parsedLikeItems = [];
     try {
       parsedLikeItems = storedLikeItems ? JSON.parse(storedLikeItems) : [];
@@ -264,12 +295,14 @@ const DialogBox = ({ isOpen, children, closeDialog, dilogName }) => {
     } catch (error) {
       console.error("Error parsing like items:", error);
     }
-    const filteredProducts = MirchMasalaProduct.filter(product => parsedLikeItems.includes(product.ProductId));
+    const filteredProducts = MirchMasalaProduct.filter((product) =>
+      parsedLikeItems.includes(product.ProductId)
+    );
     setLikeItems(filteredProducts);
   };
 
   const UpdateFetchLikeItems = (ProductIdUpdate) => {
-    let storedLikeItems = localStorage.getItem('MirchMasalaLikeCart');
+    let storedLikeItems = localStorage.getItem("MirchMasalaLikeCart");
     let parsedLikeItems = [];
     try {
       parsedLikeItems = storedLikeItems ? JSON.parse(storedLikeItems) : [];
@@ -282,7 +315,10 @@ const DialogBox = ({ isOpen, children, closeDialog, dilogName }) => {
     if (parsedLikeItems.includes(ProductIdUpdate)) {
       const index = parsedLikeItems.indexOf(ProductIdUpdate);
       parsedLikeItems.splice(index, 1);
-      localStorage.setItem('MirchMasalaLikeCart', JSON.stringify(parsedLikeItems));
+      localStorage.setItem(
+        "MirchMasalaLikeCart",
+        JSON.stringify(parsedLikeItems)
+      );
     }
     fetchLikeItems();
   };
@@ -296,8 +332,10 @@ const DialogBox = ({ isOpen, children, closeDialog, dilogName }) => {
 
   if (!isOpen) return null;
 
-  const renderCartItem = cartItem => {
-    const product = MirchMasalaProduct.find(item => item.ProductId === cartItem.ProductId);
+  const renderCartItem = (cartItem) => {
+    const product = MirchMasalaProduct.find(
+      (item) => item.ProductId === cartItem.ProductId
+    );
 
     return (
       <Box key={product.ProductId}>
@@ -316,23 +354,28 @@ const DialogBox = ({ isOpen, children, closeDialog, dilogName }) => {
             <p>
               {product.discountedPrice}
               <del> {product.originalPrice} </del>
-              <span>Total : {Number(product.discountedPrice) * Number(cartItem.Amount)}</span>
+              <span>
+                Total :{" "}
+                {Number(product.discountedPrice) * Number(cartItem.Amount)}
+              </span>
             </p>
           </ProductPrice>
         </ProductDetails>
         <ProductAmount>
           <p>Amount : {cartItem.Amount}</p>
           <ChangeAmount>
-            <FaMinus onClick={() => updateCart(product.ProductId, 'Sub')} />
-            <FaPlus onClick={() => updateCart(product.ProductId, 'Add')} />
-            <MdRemoveShoppingCart onClick={() => updateCart(product.ProductId, 'Remove')} />
+            <FaMinus onClick={() => updateCart(product.ProductId, "Sub")} />
+            <FaPlus onClick={() => updateCart(product.ProductId, "Add")} />
+            <MdRemoveShoppingCart
+              onClick={() => updateCart(product.ProductId, "Remove")}
+            />
           </ChangeAmount>
         </ProductAmount>
       </Box>
     );
   };
 
-  const renderLikeItem = product => (
+  const renderLikeItem = (product) => (
     <Box key={product.id}>
       <ProductImage>
         <img src={NotItem} alt={product.name} />
@@ -350,7 +393,12 @@ const DialogBox = ({ isOpen, children, closeDialog, dilogName }) => {
             {product.discountedPrice}
             <del> {product.originalPrice} </del>
           </p>
-          <FaHeart cursor={"pointer"} fontSize={32} color="red" onClick={() => UpdateFetchLikeItems(product.ProductId)} />
+          <FaHeart
+            cursor={"pointer"}
+            fontSize={32}
+            color="red"
+            onClick={() => UpdateFetchLikeItems(product.ProductId)}
+          />
         </ProductPrice>
       </ProductDetails>
     </Box>
@@ -360,11 +408,11 @@ const DialogBox = ({ isOpen, children, closeDialog, dilogName }) => {
     <>
       <Overlay />
       <DialogContainer className="cart">
-        {children}
+        <h5>{children}</h5>
         {cartItems.length > 0 ? (
-          dilogName === 'Shopping Bag' ? (
+          dilogName === "Shopping Bag" ? (
             cartItems.map(renderCartItem)
-          ) : dilogName === 'Heart Bag' ? (
+          ) : dilogName === "Heart Bag" ? (
             likeItems.map(renderLikeItem)
           ) : (
             <div>
@@ -378,6 +426,16 @@ const DialogBox = ({ isOpen, children, closeDialog, dilogName }) => {
             <img width={250} src={NotItem} alt="Not any item present" />
           </div>
         )}
+        {cartItems.length > 0 ? (
+          <CheckoutButton
+            onClick={() => {
+              navigate("/CheckOut");
+              closeDialog();
+            }}
+          >
+            <FaCartShopping /> Checkout
+          </CheckoutButton>
+        ) : null}
       </DialogContainer>
     </>
   );

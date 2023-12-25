@@ -17,7 +17,6 @@ const Container = styled.div`
   width: 40%;
   max-width: 400px;
   height: auto;
-  ${'' /* height: 670px; */}
   transform: translate(-50%, -50%);
   background: #080b0e;
   padding: 20px;
@@ -27,6 +26,15 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   font-family: "Poppins", sans-serif;
+  overflow: scroll;
+
+  &::-webkit-scrollbar {
+    width: 0; 
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: transparent;
+  }
 
   @media (max-width: 1055px) {
     width: 90%;
@@ -274,11 +282,6 @@ export default function LoginSignup() {
           Alwarady have an account?
           <SignUp onClick={() => setActiveContainer("Login")}>Login</SignUp>
         </SmallText>
-        <WithGoogle userData={(data)=>{
-          console.log(data)
-        }} dataAuthenticated={(data)=>{
-          console.log(data)
-        }}/>
       </Container>
     );
   };
@@ -389,11 +392,7 @@ export default function LoginSignup() {
         <ForgotButton onClick={() => setActiveContainer("FORGOT PASSWORD")}>
           FORGOT PASSWORD
         </ForgotButton>
-        <WithGoogle userData={(data)=>{
-          console.log(data)
-        }} userDataAuthenticated={(data)=>{
-          console.log(data)
-        }}/>
+        <WithGoogle TargetWithGoogle={"SignupContainer"}/>
       </Container>
     );
   };
@@ -487,11 +486,7 @@ export default function LoginSignup() {
         <ForgotButton onClick={() => setActiveContainer("FORGOT PASSWORD")}>
           FORGOT PASSWORD
         </ForgotButton>
-        <WithGoogle userData={(data)=>{
-          console.log(data)
-        }} userDataAuthenticated={(data)=>{
-          console.log(data)
-        }}/>
+        <WithGoogle TargetWithGoogle={"LoginContainer"}/>
       </Container>
     );
   };

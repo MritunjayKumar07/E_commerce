@@ -51,14 +51,14 @@ const ContinueWithGoogle = styled.button`
   }
 `;
 
-export default function WithGoogle({ userData, userDataAuthenticated }) {
+export default function WithGoogle({ TargetWithGoogle }) {
   const { user, loginWithRedirect, isAuthenticated } = useAuth0();
-  if (user) {
-    userData(user);
-  }
-  if (isAuthenticated) {
-    userDataAuthenticated(isAuthenticated);
-  }
+  // if (user) {
+  //   console.log(user);
+  // }
+  // if (isAuthenticated) {
+  //   console.log(isAuthenticated);
+  // }
   //https://res.cloudinary.com/dmcgmz9do/image/upload/v1703264444/logo_k3m0yo.png
   // Replace the image tag with the base64-encoded SVG code
   const svgIcon =
@@ -66,7 +66,10 @@ export default function WithGoogle({ userData, userDataAuthenticated }) {
 
   return (
     <ContinueWithGoogle
-      onClick={() => loginWithRedirect()}
+      onClick={() => {
+        loginWithRedirect();
+        localStorage.setItem("TargetWithGoogle", TargetWithGoogle);
+      }}
       className="login-with-google-btn"
     >
       <img src={svgIcon} alt="Google Icon" />

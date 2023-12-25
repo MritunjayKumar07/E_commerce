@@ -148,6 +148,7 @@ export default function PasswordGenerate({ emailVerification }) {
     length: false,
   });
 
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setUserPassword((prevUser) => ({ ...prevUser, [name]: value }));

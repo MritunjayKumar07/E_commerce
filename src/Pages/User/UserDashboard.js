@@ -1,6 +1,6 @@
-// Import necessary libraries
-import React from 'react';
-import styled from 'styled-components';
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 
 // Styled components for building the UI
 const DashboardContainer = styled.div`
@@ -197,7 +197,7 @@ const SearchSection = styled.div`
     margin-bottom: 10px;
   }
 
-  // Include search input and filters as needed
+  ${"" /* // Include search input and filters as needed */}
 `;
 
 const RatingsAndReviewsSection = styled.div`
@@ -208,7 +208,7 @@ const RatingsAndReviewsSection = styled.div`
     margin-bottom: 10px;
   }
 
-  // Include rating and review components
+  ${"" /* // Include rating and review components */}
 `;
 
 const DeliveryTrackingSection = styled.div`
@@ -219,7 +219,7 @@ const DeliveryTrackingSection = styled.div`
     margin-bottom: 10px;
   }
 
-  // Include delivery tracking components
+  ${"" /* // Include delivery tracking components */}
 `;
 
 const CommunicationSection = styled.div`
@@ -230,7 +230,7 @@ const CommunicationSection = styled.div`
     margin-bottom: 10px;
   }
 
-  // Include messaging and notification components
+  ${"" /* // Include messaging and notification components */}
 `;
 
 const AccountSettingsSection = styled.div`
@@ -241,7 +241,7 @@ const AccountSettingsSection = styled.div`
     margin-bottom: 10px;
   }
 
-  // Include account settings components
+  ${"" /* // Include account settings components */}
 `;
 
 const FeedbackAndSurveysSection = styled.div`
@@ -252,7 +252,7 @@ const FeedbackAndSurveysSection = styled.div`
     margin-bottom: 10px;
   }
 
-  // Include feedback and survey components
+  ${"" /* // Include feedback and survey components */}
 `;
 
 const SocialMediaIntegrationSection = styled.div`
@@ -263,7 +263,7 @@ const SocialMediaIntegrationSection = styled.div`
     margin-bottom: 10px;
   }
 
-  // Include social media integration components
+  ${"" /* // Include social media integration components */}
 `;
 
 const HelpAndFAQSection = styled.div`
@@ -274,21 +274,54 @@ const HelpAndFAQSection = styled.div`
     margin-bottom: 10px;
   }
 
-  // Include help and FAQ components
+  ${"" /* // Include help and FAQ components */}
 `;
 
 // UserDashboard component
 const UserDashboard = () => {
-  const handleLogout = () => {
-    // Implement logout functionality here
-    alert('Logout clicked');
+  const navigate = useNavigate();
+  const [userData, setUserData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchLoginUser = () => {
+    const data = JSON.parse(sessionStorage.getItem("userData"));
+    return `${data.userId}MirchMasala${data.username}`;
   };
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:9000/mirchmasala/user?id=${fetchLoginUser()}`
+      );
+      const data = await response.json();
+      if (response.status === 200) {
+        setUserData(data);
+        console.log(data);
+      } else {
+        console.error("Data fetching failed:", data.message);
+      }
+    } catch (error) {
+      console.error("Error during data fetching:", error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <DashboardContainer>
       <Navbar>
-        <h1>Your Dashboard</h1>
-        <button onClick={handleLogout}>Logout</button>
+        <h3>
+          {userData.Username
+            ? userData.Username.split("_")
+                .map((word) => word.replace(/\d/g, "")) // Remove numeric characters
+                .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+                .join(" ")
+            : "Mirch Masala"}
+        </h3>
       </Navbar>
       <MainContent>
         <Sidebar>
