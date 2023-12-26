@@ -136,7 +136,7 @@ const PasswordView = styled.div`
 
 const SmallText = styled.span`
   color: #aaa;
-  white: 100%;
+  width: 100%;
   font-size: 14px;
   text-align: center;
   margin-top: 25px;

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Banner } from '../server/ApiBanner';
+import { Link } from 'react-router-dom';
 
 export default function Banners() {
     return (
@@ -18,9 +19,9 @@ export default function Banners() {
                                         <p className="banner-text">
                                             starting at &dollar; <b>{item.banner_text}</b>
                                         </p>
-                                        <a href={item.link} className="banner-btn">
+                                        <Link to={'/'} className="banner-btn">
                                             {item.banner_btn}
-                                        </a>
+                                        </Link>
                                     </div>
                                 </div>
                             )

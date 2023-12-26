@@ -1,6 +1,7 @@
 import React from 'react';
 import payment from "../assets/images/payment.png";
 import { categories, navItems, contactInfo, socialLinks } from '../server/ApiFooter';
+import { Link } from 'react-router-dom';
 
 //1023
 const Footer = () => {
@@ -13,9 +14,9 @@ const Footer = () => {
                         <div key={index} className="footer-category-box">
                             <h3 className="category-box-title">{category.title} :</h3>
                             {category.links.map((link, i) => (
-                                <a key={i} href="#" className="footer-category-link">
+                                <Link key={i} to={"/" }className="footer-category-link">
                                     {link}
-                                </a>
+                                </Link>
                             ))}
                         </div>
                     ))}
@@ -31,9 +32,9 @@ const Footer = () => {
                             </li>
                             {item.links.map((link, i) => (
                                 <li key={i} className="footer-nav-item">
-                                    <a href="#" className="footer-nav-link">
+                                    <Link to={"/"} className="footer-nav-link">
                                         {link}
-                                    </a>
+                                    </Link>
                                 </li>
                             ))}
                         </ul>
@@ -45,9 +46,9 @@ const Footer = () => {
                             <li className="footer-nav-item flex">
                                 <div className="icon-box">{info.icon}</div>
                                 {info.text.includes('@') ? (
-                                    <a href={`mailto:${info.text}`} className="footer-nav-link">
+                                    <Link to={`mailto:${info.text}`} className="footer-nav-link">
                                         {info.text}
-                                    </a>
+                                    </Link>
                                 ) : (
                                     <address className="content">{info.text}</address>
                                 )}
@@ -62,9 +63,9 @@ const Footer = () => {
                             <ul className="social-link">
                                 {socialLinks.map((social, index) => (
                                     <li key={index} className="footer-nav-item">
-                                        <a href={social.link} className="footer-nav-link">
+                                        <Link to={social.link} className="footer-nav-link">
                                             {social.icon}
-                                        </a>
+                                        </Link>
                                     </li>
                                 ))}
                             </ul>
@@ -77,7 +78,7 @@ const Footer = () => {
                 <div className="container">
                     <img src={payment} alt="payment method" className="payment-img" />
                     <p className="copyright">
-                        Copyright &copy; <a href="#">Mirch Masala</a> all rights reserved.
+                        Copyright &copy; <Link to={"#"}>Mirch Masala</Link> all rights reserved.
                     </p>
                 </div>
             </div>

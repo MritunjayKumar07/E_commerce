@@ -1,6 +1,36 @@
+import {
+  FaRegBell,
+  FaArrowRotateLeft,
+  FaAnglesLeft,
+  FaAnglesRight,
+  FaUserLarge,
+  FaReceipt,
+  FaTruckFast,
+  FaHeart,
+  FaStar,
+  FaEnvelopeOpenText,
+  FaReadme,
+  FaUserTag,
+  FaGears,
+  FaUsersLine,
+  FaHeadset,
+  FaPepperHot,
+} from "react-icons/fa6";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+
+import UserProfile from "./DashBordPage/UserProfile";
+import Orders from "./DashBordPage/Orders";
+import Delivery from "./DashBordPage/Delivery";
+import Favorites from "./DashBordPage/Favorites";
+import RatingsAndReviews from "./DashBordPage/RatingsAndReviews";
+import Feedback from "./DashBordPage/Feedback";
+import Menu from "./DashBordPage/Menu";
+import Promotions from "./DashBordPage/Promotions";
+import Settings from "./DashBordPage/Settings";
+import Communication from "./DashBordPage/Communication";
+import HelpAndFAQ from "./DashBordPage/HelpAndFAQ";
 
 // Styled components for building the UI
 const DashboardContainer = styled.div`
@@ -15,7 +45,8 @@ const Navbar = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #292c35;
+  border-radius: 15px;
+  background-color: #0b1320;
   color: white;
   padding: 10px 20px;
 `;
@@ -29,252 +60,65 @@ const MainContent = styled.div`
 
 const Sidebar = styled.div`
   width: 250px;
-  background-color: #292c35;
+  ${"" /* width:${({ isOpen }) => (isOpen ? '50px' : '250px')}; */}
+  height: 100vh;
+  display: flex;
+  display: ${({ isOpen }) => (isOpen ? `none` : "flex")};
+  overflow-x: hidden;
+  transition: 0.5s ease-in-out;
+  background-color: #0b1320;
   color: white;
   padding: 20px;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 15px 0px 0px 15px;
+  li {
+    display: flex;
+    gap: 15px;
+    padding: 10px 7px;
+    font-size: auto;
+    font-weight: 600;
+    cursor: pointer;
+    svg {
+      font-size: 22.5px;
+    }
+    &:hover {
+      background: #fff;
+      border-radius: 15px;
+      color: #0b1320;
+      font-weight: 700;
+    }
+  }
 `;
 
 const ContentSection = styled.div`
   flex: 1;
+  height: 100vh;
   background-color: #f4f4f4;
-  padding: 20px;
+  padding: 5px;
   margin-bottom: 20px;
-`;
+  overflow-y: auto;
 
-const ProfileSection = styled.div`
-  margin-bottom: 20px;
+  scrollbar-width: thin;
+  scrollbar-color: #292c35 transparent;
 
-  h2 {
-    color: #333;
-    margin-bottom: 10px;
+  &::-webkit-scrollbar {
+    width: 5px;
   }
 
-  p {
-    color: #888;
-    margin-bottom: 20px;
+  &::-webkit-scrollbar-track {
+    background: #fff;
   }
 
-  button {
-    background-color: #3498db;
-    color: white;
-    padding: 8px 12px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-
-    &:hover {
-      background-color: #2980b9;
-    }
-  }
-`;
-
-const OrderHistorySection = styled.div`
-  margin-bottom: 20px;
-
-  h2 {
-    color: #333;
-    margin-bottom: 10px;
+  &::-webkit-scrollbar-thumb {
+    background-color: #292c35;
+    border: 3px solid transparent;
+    border-radius: 10px;
   }
 
-  ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-
-    li {
-      border-bottom: 1px solid #ddd;
-      padding: 10px 0;
-
-      &:last-child {
-        border-bottom: none;
-      }
-    }
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: #292c35;
   }
-`;
-
-const CurrentOrdersSection = styled.div`
-  margin-bottom: 20px;
-
-  h2 {
-    color: #333;
-    margin-bottom: 10px;
-  }
-
-  ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-
-    li {
-      border-bottom: 1px solid #ddd;
-      padding: 10px 0;
-
-      &:last-child {
-        border-bottom: none;
-      }
-    }
-  }
-`;
-
-const FavoritesAndRecommendationsSection = styled.div`
-  margin-bottom: 20px;
-
-  h2 {
-    color: #333;
-    margin-bottom: 10px;
-  }
-
-  ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-
-    li {
-      border-bottom: 1px solid #ddd;
-      padding: 10px 0;
-
-      &:last-child {
-        border-bottom: none;
-      }
-    }
-  }
-`;
-
-const PromotionsSection = styled.div`
-  margin-bottom: 20px;
-
-  h2 {
-    color: #333;
-    margin-bottom: 10px;
-  }
-
-  ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-
-    li {
-      border-bottom: 1px solid #ddd;
-      padding: 10px 0;
-
-      &:last-child {
-        border-bottom: none;
-      }
-    }
-  }
-`;
-
-const MenuSection = styled.div`
-  margin-bottom: 20px;
-
-  h2 {
-    color: #333;
-    margin-bottom: 10px;
-  }
-
-  ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-
-    li {
-      border-bottom: 1px solid #ddd;
-      padding: 10px 0;
-
-      &:last-child {
-        border-bottom: none;
-      }
-    }
-  }
-`;
-
-const SearchSection = styled.div`
-  margin-bottom: 20px;
-
-  h2 {
-    color: #333;
-    margin-bottom: 10px;
-  }
-
-  ${"" /* // Include search input and filters as needed */}
-`;
-
-const RatingsAndReviewsSection = styled.div`
-  margin-bottom: 20px;
-
-  h2 {
-    color: #333;
-    margin-bottom: 10px;
-  }
-
-  ${"" /* // Include rating and review components */}
-`;
-
-const DeliveryTrackingSection = styled.div`
-  margin-bottom: 20px;
-
-  h2 {
-    color: #333;
-    margin-bottom: 10px;
-  }
-
-  ${"" /* // Include delivery tracking components */}
-`;
-
-const CommunicationSection = styled.div`
-  margin-bottom: 20px;
-
-  h2 {
-    color: #333;
-    margin-bottom: 10px;
-  }
-
-  ${"" /* // Include messaging and notification components */}
-`;
-
-const AccountSettingsSection = styled.div`
-  margin-bottom: 20px;
-
-  h2 {
-    color: #333;
-    margin-bottom: 10px;
-  }
-
-  ${"" /* // Include account settings components */}
-`;
-
-const FeedbackAndSurveysSection = styled.div`
-  margin-bottom: 20px;
-
-  h2 {
-    color: #333;
-    margin-bottom: 10px;
-  }
-
-  ${"" /* // Include feedback and survey components */}
-`;
-
-const SocialMediaIntegrationSection = styled.div`
-  margin-bottom: 20px;
-
-  h2 {
-    color: #333;
-    margin-bottom: 10px;
-  }
-
-  ${"" /* // Include social media integration components */}
-`;
-
-const HelpAndFAQSection = styled.div`
-  margin-bottom: 20px;
-
-  h2 {
-    color: #333;
-    margin-bottom: 10px;
-  }
-
-  ${"" /* // Include help and FAQ components */}
 `;
 
 // UserDashboard component
@@ -282,6 +126,8 @@ const UserDashboard = () => {
   const navigate = useNavigate();
   const [userData, setUserData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const [currentComponent, setCurrentComponent] = useState("Profile");
 
   const fetchLoginUser = () => {
     const data = JSON.parse(sessionStorage.getItem("userData"));
@@ -296,7 +142,7 @@ const UserDashboard = () => {
       const data = await response.json();
       if (response.status === 200) {
         setUserData(data);
-        console.log(data);
+        // console.log(data);
       } else {
         console.error("Data fetching failed:", data.message);
       }
@@ -307,6 +153,35 @@ const UserDashboard = () => {
     }
   };
 
+  const renderContent = () => {
+    switch (currentComponent) {
+      case "Profile":
+        return <UserProfile />;
+      case "Orders":
+        return <Orders />;
+      case "Delivery":
+        return <Delivery />;
+      case "Favorites":
+        return <Favorites />;
+      case "Reviews":
+        return <RatingsAndReviews />;
+      case "Feedback":
+        return <Feedback />;
+      case "Menu":
+        return <Menu />;
+      case "Promotions":
+        return <Promotions />;
+      case "Settings":
+        return <Settings />;
+      case "Communication":
+        return <Communication />;
+      case "HelpAndFAQ":
+        return <HelpAndFAQ />;
+      default:
+        return <UserProfile />;
+    }
+  };
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -314,102 +189,117 @@ const UserDashboard = () => {
   return (
     <DashboardContainer>
       <Navbar>
-        <h3>
+        <h3 style={{ fontSize: "auto", fontWeight: "auto" }}>
           {userData.Username
-            ? userData.Username.split("_")
+            ? `Hello ${userData.Username.split("_")
                 .map((word) => word.replace(/\d/g, "")) // Remove numeric characters
                 .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-                .join(" ")
+                .join(" ")}`
             : "Mirch Masala"}
         </h3>
+        <div style={{ display: "flex", gap: "16.5px" }}>
+          {isSidebarOpen ? (
+            <button
+              onClick={() => setSidebarOpen((prev) => !prev)}
+              style={{ color: "#fff", fontWeight: 600 }}
+            >
+              <FaAnglesLeft />
+            </button>
+          ) : (
+            <button
+              onClick={() => setSidebarOpen((prev) => !prev)}
+              style={{ color: "#fff", fontWeight: 600 }}
+            >
+              <FaAnglesRight />
+            </button>
+          )}
+          <button style={{ color: "#fff", fontWeight: 600 }}>
+            <FaRegBell fontSize={24} />
+            <span>2</span>
+          </button>
+          <button
+            onClick={() => window.location.reload()}
+            style={{ color: "#fff", fontWeight: 600 }}
+          >
+            <FaArrowRotateLeft fontSize={24} />
+          </button>
+        </div>
       </Navbar>
       <MainContent>
-        <Sidebar>
-          {/* Include user profile image, quick links, or any other relevant content */}
+        <Sidebar isOpen={isSidebarOpen}>
+          <ul>
+            <li onClick={() => setCurrentComponent("Profile")}>
+              <FaUserLarge />
+              Profile
+            </li>
+            <li onClick={() => setCurrentComponent("Orders")}>
+              <FaReceipt />
+              Orders
+            </li>
+            <li onClick={() => setCurrentComponent("Delivery")}>
+              <FaTruckFast />
+              Delivery
+            </li>
+            <li onClick={() => setCurrentComponent("Favorites")}>
+              <FaHeart />
+              Favorites
+            </li>
+            <li onClick={() => setCurrentComponent("Reviews")}>
+              <FaStar />
+              Reviews
+            </li>
+            <li onClick={() => setCurrentComponent("Feedback")}>
+              <FaEnvelopeOpenText />
+              Feedback
+            </li>
+            <li onClick={() => setCurrentComponent("Menu")}>
+              <FaReadme />
+              Menu
+            </li>
+            <li onClick={() => setCurrentComponent("Promotions")}>
+              <FaUserTag />
+              Promotions
+            </li>
+            <li onClick={() => setCurrentComponent("Settings")}>
+              <FaGears />
+              Settings
+            </li>
+            <li onClick={() => setCurrentComponent("Communication")}>
+              <FaUsersLine />
+              Communication
+            </li>
+            <li onClick={() => setCurrentComponent("HelpAndFAQ")}>
+              <FaHeadset />
+              HelpAndFAQ
+            </li>
+          </ul>
+          {isSidebarOpen ? (
+            <button
+              onClick={() => setSidebarOpen((prev) => !prev)}
+              style={{
+                color: "#fff",
+                fontWeight: 600,
+                float: "right",
+                marginBottom: "10px",
+              }}
+            >
+              <FaAnglesLeft />
+            </button>
+          ) : (
+            <button
+              onClick={() => setSidebarOpen((prev) => !prev)}
+              style={{
+                color: "#fff",
+                fontWeight: 600,
+                float: "right",
+                marginBottom: "10px",
+              }}
+            >
+              <FaPepperHot style={{ marginRight: "10px" }} /> Mirch Masalapx
+            </button>
+          )}
         </Sidebar>
-        <ContentSection>
-          <ProfileSection>
-            <h2>User Profile</h2>
-            <p>Manage your account details.</p>
-            <button>Edit Profile</button>
-          </ProfileSection>
-          <OrderHistorySection>
-            <h2>Order History</h2>
-            <ul>
-              {/* List of past orders with details */}
-              <li>Order #1234 - Date: DD/MM/YYYY - Status: Delivered</li>
-              <li>Order #5678 - Date: DD/MM/YYYY - Status: In Progress</li>
-              {/* Add more order entries */}
-            </ul>
-          </OrderHistorySection>
-          <CurrentOrdersSection>
-            <h2>Current Orders</h2>
-            <ul>
-              {/* List of ongoing orders with details */}
-              <li>Order #91011 - Date: DD/MM/YYYY - Status: Pending</li>
-              {/* Add more ongoing order entries */}
-            </ul>
-          </CurrentOrdersSection>
-          <FavoritesAndRecommendationsSection>
-            <h2>Favorites and Recommendations</h2>
-            <ul>
-              {/* List of favorite dishes and personalized recommendations */}
-              <li>Favorite Dish: Pizza</li>
-              <li>Recommended Dish: Chef's Special Pasta</li>
-              {/* Add more favorite and recommended entries */}
-            </ul>
-          </FavoritesAndRecommendationsSection>
-          <PromotionsSection>
-            <h2>Promotions</h2>
-            <ul>
-              {/* List of ongoing promotions */}
-              <li>Get 20% off on all orders using code: PROMO20</li>
-              {/* Add more promotion entries */}
-            </ul>
-          </PromotionsSection>
-          <MenuSection>
-            <h2>Menu</h2>
-            <ul>
-              {/* List of menu items with details */}
-              <li>Pizza - Price: $12.99</li>
-              <li>Chef's Special Pasta - Price: $15.99</li>
-              {/* Add more menu entries */}
-            </ul>
-          </MenuSection>
-          <SearchSection>
-            <h2>Search</h2>
-            {/* Include search input and filters */}
-          </SearchSection>
-          <RatingsAndReviewsSection>
-            <h2>Ratings and Reviews</h2>
-            {/* Include rating and review components */}
-          </RatingsAndReviewsSection>
-          <DeliveryTrackingSection>
-            <h2>Delivery Tracking</h2>
-            {/* Include delivery tracking components */}
-          </DeliveryTrackingSection>
-          <CommunicationSection>
-            <h2>Communication</h2>
-            {/* Include messaging and notification components */}
-          </CommunicationSection>
-          <AccountSettingsSection>
-            <h2>Account Settings</h2>
-            {/* Include account settings components */}
-          </AccountSettingsSection>
-          <FeedbackAndSurveysSection>
-            <h2>Feedback and Surveys</h2>
-            {/* Include feedback and survey components */}
-          </FeedbackAndSurveysSection>
-          <SocialMediaIntegrationSection>
-            <h2>Social Media Integration</h2>
-            {/* Include social media integration components */}
-          </SocialMediaIntegrationSection>
-          <HelpAndFAQSection>
-            <h2>Help and FAQ</h2>
-            {/* Include help and FAQ components */}
-          </HelpAndFAQSection>
-          {/* Add more sections as needed */}
-        </ContentSection>
+        <ContentSection>{renderContent()}</ContentSection>
       </MainContent>
     </DashboardContainer>
   );

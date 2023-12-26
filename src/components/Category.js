@@ -41,9 +41,9 @@ export default function Category() {
                     {categoryInfo[categoryName].count} items
                   </p>
                 </div>
-                <a href="#" className="category-btn">
+                <Link to={"/"} className="category-btn">
                   See all
-                </a>
+                </Link>
               </div>
             </Link>
           ))}
