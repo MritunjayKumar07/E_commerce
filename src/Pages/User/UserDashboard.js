@@ -156,7 +156,7 @@ const UserDashboard = () => {
   const renderContent = () => {
     switch (currentComponent) {
       case "Profile":
-        return <UserProfile />;
+        return <UserProfile userData={userData}/>;
       case "Orders":
         return <Orders />;
       case "Delivery":

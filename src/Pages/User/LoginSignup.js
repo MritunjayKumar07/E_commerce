@@ -29,7 +29,7 @@ const Container = styled.div`
   overflow: scroll;
 
   &::-webkit-scrollbar {
-    width: 0; 
+    width: 0;
   }
 
   &::-webkit-scrollbar-thumb {
@@ -172,9 +172,6 @@ const ForgotButton = styled.span`
     color: #9c5cbc;
   }
 `;
-
-
-
 export default function LoginSignup() {
   const { user, isAuthenticated } = useAuth0();
   const [countdown, setCountdown] = useState(300); // 7 minutes in seconds
@@ -392,19 +389,19 @@ export default function LoginSignup() {
         <ForgotButton onClick={() => setActiveContainer("FORGOT PASSWORD")}>
           FORGOT PASSWORD
         </ForgotButton>
-        <WithGoogle TargetWithGoogle={"SignupContainer"}/>
+        <WithGoogle TargetWithGoogle={"SignupContainer"} />
       </Container>
     );
   };
 
-  const LoginContainer = () => {
+  const LoginContainer = ({ onChildData }) => {
     const [showPassword, setShowPassword] = useState(false);
     // const [byGoogle, setByGoogle] = useState();
     const [userLogin, setUserLogin] = useState({
       usernameOrEmail: "",
       Password: "",
     });
-    
+
     // console.log(byGoogle);
     const handleInputChange = (e) => {
       const { name, value } = e.target;
@@ -418,7 +415,6 @@ export default function LoginSignup() {
           "http://localhost:9000/mirchmasala/login",
           userLogin
         );
-        // console.log(response);
         if (response.data.status) {
           sessionStorage.setItem(
             "userData",
@@ -486,7 +482,7 @@ export default function LoginSignup() {
         <ForgotButton onClick={() => setActiveContainer("FORGOT PASSWORD")}>
           FORGOT PASSWORD
         </ForgotButton>
-        <WithGoogle TargetWithGoogle={"LoginContainer"}/>
+        <WithGoogle TargetWithGoogle={"LoginContainer"} />
       </Container>
     );
   };
@@ -496,7 +492,7 @@ export default function LoginSignup() {
       case "SignUp":
         return <SignupContainer />;
       case "Login":
-        return <LoginContainer />;
+        return <LoginContainer/>;
       case "FORGOT PASSWORD":
         return <ForgotContainer />;
       case "Re-Generate VerificationCode":

@@ -13,8 +13,9 @@ export default function HeaderTop() {
   const [isUserName, setIsUserName] = useState("");
 
   const handleLogout = () => {
+    logout();
     sessionStorage.clear();
-    window.location.href = "/";
+    window.location.reload();
   };
 
   useEffect(() => {
@@ -67,21 +68,27 @@ export default function HeaderTop() {
           </select> */}
           {/* <h5>Login / SignUp</h5> */}
           {isUserName || isAuthenticated ? (
-            <select
-              name="currency"
-              onChange={isAuthenticated ? (e) => logout() : handleLogout}
-            >
-              <option value="Login/Signup">
-                <h5 style={{ color: "#000", textTransform: "capitalize" }}>
-                  Hello {isUserName || user.name}
-                </h5>
-              </option>
-              <option value="Logout">
-                <h5 style={{ color: "#000", textTransform: "capitalize" }}>
-                  Logout
-                </h5>
-              </option>
-            </select>
+            <>
+              <h5
+                style={{
+                  color: "#000",
+                  textTransform: "capitalize",
+                  textDecoration: "underline",
+                }}
+              >
+                Hello {isUserName || user.name}
+              </h5>
+
+              <h5
+                onClick={(e) => {
+                  handleLogout();
+                  logout();
+                }}
+                style={{ color: "#000", textTransform: "capitalize" }}
+              >
+                Logout
+              </h5>
+            </>
           ) : (
             <Link to={"/LoginSignup"}>
               <h5 style={{ color: "#000" }}>Login / SignUp ➔</h5>
