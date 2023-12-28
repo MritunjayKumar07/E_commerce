@@ -11,8 +11,6 @@ import LoginSignup from './Pages/User/LoginSignup';
 import UserDashboard from './Pages/User/UserDashboard';
 import Search from './components/search/Search';
 
-
-
 function App() {
   const location = useLocation();
   const isLoginSignupRoute = location.pathname.includes('/LoginSignup');
